@@ -3,33 +3,121 @@ import type { ButtonHTMLAttributes } from 'react';
 import { useTheme } from '../theme';
 import { registerComponentTheme, getComponentTheme } from '../theme/registry';
 import { defaultButtonTheme, type ButtonTheme } from './Button/theme';
+import { ButtonVariant, ComponentSize } from '../contracts';
 
 // Register the button theme when the module loads
 registerComponentTheme('button', defaultButtonTheme);
 
 /**
  * Props for the Button component.
+ * 
  * Extends standard HTML button attributes with theme-aware styling options.
+ * The Button component provides a consistent, accessible, and themeable button
+ * implementation with multiple variants, sizes, and states.
+ * 
+ * @example
+ * ```tsx
+ * // Basic usage with type-safe variants
+ * import { Button, ButtonVariant, ComponentSize } from '@/components';
+ * 
+ * <Button variant={ButtonVariant.Primary} size={ComponentSize.Large}>
+ *   Primary Button
+ * </Button>
+ * 
+ * // With icons and loading state
+ * <Button 
+ *   variant={ButtonVariant.Outline}
+ *   size={ComponentSize.Medium}
+ *   leftIcon={<PlusIcon />}
+ *   isLoading={isSubmitting}
+ *   onClick={handleSubmit}
+ * >
+ *   Add Item
+ * </Button>
+ * 
+ * // Using string literals (also supported)
+ * <Button variant="ghost" size="sm">
+ *   Ghost Button
+ * </Button>
+ * ```
+ * 
+ * @since 1.0.0
  */
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** 
-   * Visual variant of the button
-   * @default 'primary'
+   * Visual variant of the button that determines its appearance and semantic meaning.
+   * 
+   * - `primary`: Solid primary button with brand colors (default)
+   * - `secondary`: Solid secondary button with muted colors  
+   * - `outline`: Outlined button with transparent background
+   * - `ghost`: Minimal button with no background or border
+   * 
+   * @default ButtonVariant.Primary
+   * @example
+   * ```tsx
+   * <Button variant={ButtonVariant.Primary}>Primary</Button>
+   * <Button variant={ButtonVariant.Outline}>Outline</Button>
+   * ```
+   * @since 1.0.0
    */
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
+  variant?: ButtonVariant | 'primary' | 'secondary' | 'outline' | 'ghost';
+  
   /** 
-   * Size of the button 
-   * @default 'md'
+   * Size of the button that affects padding, font size, and overall dimensions.
+   * 
+   * - `sm`: Small button for compact layouts
+   * - `md`: Medium button for standard use (default)
+   * - `lg`: Large button for prominent actions
+   * 
+   * @default ComponentSize.Medium
+   * @example
+   * ```tsx
+   * <Button size={ComponentSize.Small}>Small</Button>
+   * <Button size={ComponentSize.Large}>Large</Button>
+   * ```
+   * @since 1.0.0
    */
-  size?: 'sm' | 'md' | 'lg';
+  size?: ComponentSize | 'sm' | 'md' | 'lg';
+  
   /** 
-   * Shows loading state with disabled interaction
+   * Shows loading state with disabled interaction and optional loading indicator.
+   * When true, the button becomes non-interactive and can display a loading spinner.
+   * 
    * @default false
+   * @example
+   * ```tsx
+   * <Button isLoading={isSubmitting}>
+   *   {isSubmitting ? 'Saving...' : 'Save'}
+   * </Button>
+   * ```
+   * @since 1.0.0
    */
   isLoading?: boolean;
-  /** Icon to display on the left side of the button text */
+  
+  /** 
+   * Icon or element to display on the left side of the button text.
+   * Automatically handles spacing and alignment with the button content.
+   * 
+   * @example
+   * ```tsx
+   * <Button leftIcon={<PlusIcon />}>Add Item</Button>
+   * <Button leftIcon={<Icon name="save" />}>Save</Button>
+   * ```
+   * @since 1.0.0
+   */
   leftIcon?: React.ReactNode;
-  /** Icon to display on the right side of the button text */
+  
+  /** 
+   * Icon or element to display on the right side of the button text.
+   * Commonly used for dropdown indicators or action confirmations.
+   * 
+   * @example
+   * ```tsx
+   * <Button rightIcon={<ChevronDownIcon />}>More Options</Button>
+   * <Button rightIcon={<ArrowRightIcon />}>Continue</Button>
+   * ```
+   * @since 1.0.0
+   */
   rightIcon?: React.ReactNode;
 }
 

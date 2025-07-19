@@ -19,6 +19,11 @@ const navItems: NavItem[] = [
     description: 'Interactive customization' 
   },
   { 
+    path: '/components', 
+    label: 'Component Playground', 
+    description: 'Test components & layouts' 
+  },
+  { 
     path: '/layouts', 
     label: 'Layout System', 
     description: 'Grid & Flex layouts' 

@@ -1,255 +1,384 @@
-import { useState } from 'react';
 import { 
+  Box, 
   Button, 
-  Input, 
   Card, 
   Text, 
-  Box,
   Badge,
-  useTheme,
-  type ThemeOverride 
+  Flex,
+  FlexItem,
+  Input,
+  ButtonVariant,
+  ComponentSize,
+  ComponentVariant,
+  CardVariant,
+  CardPadding,
+  TextSize,
+  TextWeight,
+  TextColor,
+  TextAlign,
+  TextElement,
+  FlexDirection,
+  FlexJustify,
+  FlexAlign,
+  Spacing,
+  Contracts,
+  ComponentOptions,
+  createButtonConfig,
+  createTextConfig,
+  useTheme 
 } from '../index';
 
-// Demo component that uses the theme system
 export function FrameworkDemoPage() {
-  const { theme, updateTheme } = useTheme();
-  const [primaryColor, setPrimaryColor] = useState(theme.colors.primary);
+  const { updateTheme } = useTheme();
+  
+  // Demonstrate builder pattern
+  const primaryButtonConfig = createButtonConfig()
+    .variant(ButtonVariant.Primary)
+    .size(ComponentSize.Large)
+    .build();
+    
+  const headingConfig = createTextConfig()
+    .size(TextSize.ExtraLarge3)
+    .weight(TextWeight.Bold)
+    .color(TextColor.Primary)
+    .as(TextElement.Heading1)
+    .build();
 
-  const handleColorChange = (color: string) => {
-    setPrimaryColor(color);
-    const themeOverride: ThemeOverride = {
-      colors: {
-        primary: color,
-      },
+  const applyCustomTheme = () => {
+    updateTheme({
       components: {
         button: {
           colors: {
-            primary: {
-              background: color,
-              backgroundHover: color + 'dd',
-              backgroundActive: color + 'bb',
-              border: color,
-            }
-          }
-        },
-        badge: {
-          colors: {
-            primary: {
-              background: color + '20',
-              text: color,
-              border: color + '40',
+            [ButtonVariant.Primary]: {
+              background: '#ff6b35',
+              foreground: '#ffffff',
+              hover: {
+                background: '#e55a2b'
+              }
             }
           }
         }
       }
-    };
-    updateTheme(themeOverride);
+    });
   };
 
   return (
-    <Box p="xl" maxW="1000px" mx="auto">
-      <Text as="h1" size="4xl" weight="bold" align="center" style={{ marginBottom: '2rem' }}>
-        🎨 Extensible Theme System
+    <Box p={Spacing.Large}>
+      <Text {...headingConfig} align={TextAlign.Center}>
+        BLUI Framework Demo
       </Text>
       
-      <Text size="lg" color="secondary" align="center" style={{ marginBottom: '3rem' }}>
-        Each component owns its theme and automatically extends the global theme system
-      </Text>
+      <Box mt={Spacing.Medium} mb={Spacing.ExtraLarge}>
+        <Text 
+          size={TextSize.Large}
+          color={TextColor.Secondary}
+          align={TextAlign.Center}
+        >
+          C#-like interfaces and type safety for React components
+        </Text>
+      </Box>
 
-      {/* Theme Controls */}
-      <Card padding="lg" style={{ marginBottom: '2rem' }}>
-        <Text as="h2" size="xl" weight="semibold" style={{ marginBottom: '1rem' }}>
-          🎛️ Component-Owned Themes
-        </Text>
-        <Text color="secondary" style={{ marginBottom: '1rem' }}>
-          When you add a new component, it automatically registers its theme. No central configuration needed!
-        </Text>
+      <Flex direction={FlexDirection.Column} gap={Spacing.ExtraLarge}>
         
-        <Box display="flex" style={{ gap: '0.5rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
-          {['#3b82f6', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899'].map((color) => (
-            <Button
-              key={color}
-              variant={primaryColor === color ? 'primary' : 'outline'}
-              size="sm"
-              onClick={() => handleColorChange(color)}
-              style={{ backgroundColor: color, borderColor: color, color: 'white' }}
+        {/* Type-Safe Components Section */}
+        <Card variant={CardVariant.Elevated} padding={CardPadding.Large}>
+          <Text 
+            as={TextElement.Heading2}
+            size={TextSize.ExtraLarge}
+            weight={TextWeight.Bold}
+            color={TextColor.Primary}
+          >
+            1. Type-Safe Component Usage
+          </Text>
+          
+          <Box mt={Spacing.Medium}>
+            <Text color={TextColor.Secondary}>
+              Components use type contracts instead of magic strings:
+            </Text>
+          </Box>
+          
+          <Box mt={Spacing.Medium}>
+            <Flex direction={FlexDirection.Row} gap={Spacing.Medium}>
+              <Button variant={ButtonVariant.Primary} size={ComponentSize.Large}>
+                Primary
+              </Button>
+              <Button variant={ButtonVariant.Secondary} size={ComponentSize.Medium}>
+                Secondary
+              </Button>
+              <Button variant={ButtonVariant.Outline} size={ComponentSize.Small}>
+                Outline
+              </Button>
+              <Button variant={ButtonVariant.Ghost}>
+                Ghost
+              </Button>
+            </Flex>
+          </Box>
+
+          <Box mt={Spacing.Medium}>
+            <Flex direction={FlexDirection.Row} gap={Spacing.Small}>
+              <Badge variant={ComponentVariant.Success}>Active</Badge>
+              <Badge variant={ComponentVariant.Warning}>Pending</Badge>
+              <Badge variant={ComponentVariant.Error}>Error</Badge>
+              <Badge variant={ComponentVariant.Primary} outline>Outlined</Badge>
+            </Flex>
+          </Box>
+        </Card>
+
+        {/* Typography Section */}
+        <Card variant={CardVariant.Outlined} padding={CardPadding.Large}>
+          <Text 
+            as={TextElement.Heading2}
+            size={TextSize.ExtraLarge}
+            weight={TextWeight.Bold}
+            color={TextColor.Primary}
+          >
+            2. Typography System
+          </Text>
+          
+          <Box mt={Spacing.Medium}>
+            <Text size={TextSize.ExtraLarge4} weight={TextWeight.Bold}>
+              Extra Large (4xl)
+            </Text>
+            <Text size={TextSize.ExtraLarge3} weight={TextWeight.Bold}>
+              Extra Large (3xl)
+            </Text>
+            <Text size={TextSize.ExtraLarge2} weight={TextWeight.SemiBold}>
+              Extra Large (2xl)
+            </Text>
+            <Text size={TextSize.ExtraLarge} weight={TextWeight.Medium}>
+              Extra Large (xl)
+            </Text>
+            <Text size={TextSize.Large}>Large (lg)</Text>
+            <Text size={TextSize.Base}>Base (default)</Text>
+            <Text size={TextSize.Small} color={TextColor.Secondary}>
+              Small (sm)
+            </Text>
+            <Text size={TextSize.ExtraSmall} color={TextColor.Disabled}>
+              Extra Small (xs)
+            </Text>
+          </Box>
+        </Card>
+
+        {/* Layout System Section */}
+        <Card variant={CardVariant.Filled} padding={CardPadding.Large}>
+          <Text 
+            as={TextElement.Heading2}
+            size={TextSize.ExtraLarge}
+            weight={TextWeight.Bold}
+            color={TextColor.Primary}
+          >
+            3. Flex Layout System
+          </Text>
+          
+          <Box mt={Spacing.Medium}>
+            <Box mb={Spacing.Medium}>
+              <Text color={TextColor.Secondary}>
+                Type-safe flex layouts with intelligent spacing:
+              </Text>
+            </Box>
+            
+            <Flex 
+              direction={FlexDirection.Row}
+              justify={FlexJustify.SpaceBetween}
+              align={FlexAlign.Center}
+              gap={Spacing.Medium}
             >
-              {color}
-            </Button>
-          ))}
-        </Box>
-      </Card>
+              <FlexItem flex="1">
+                <Card variant={CardVariant.Outlined} padding={CardPadding.Medium}>
+                  <Text align={TextAlign.Center}>Flexible</Text>
+                </Card>
+              </FlexItem>
+              
+              <FlexItem>
+                <Card variant={CardVariant.Outlined} padding={CardPadding.Medium}>
+                  <Text align={TextAlign.Center}>Fixed</Text>
+                </Card>
+              </FlexItem>
+              
+              <FlexItem flex="2">
+                <Card variant={CardVariant.Outlined} padding={CardPadding.Medium}>
+                  <Text align={TextAlign.Center}>Double Flex</Text>
+                </Card>
+              </FlexItem>
+            </Flex>
+          </Box>
+        </Card>
 
-      {/* Component Showcase */}
-      <Card padding="lg" style={{ marginBottom: '2rem' }}>
-        <Text as="h2" size="xl" weight="semibold" style={{ marginBottom: '1rem' }}>
-          📦 Auto-Registered Components
-        </Text>
-        
-        {/* Buttons */}
-        <Box style={{ marginBottom: '2rem' }}>
-          <Text size="lg" weight="medium" style={{ marginBottom: '0.5rem' }}>
-            Buttons
+        {/* Builder Pattern Section */}
+        <Card variant={CardVariant.Elevated} padding={CardPadding.Large}>
+          <Text 
+            as={TextElement.Heading2}
+            size={TextSize.ExtraLarge}
+            weight={TextWeight.Bold}
+            color={TextColor.Primary}
+          >
+            4. Builder Pattern Configuration
           </Text>
-          <Box display="flex" style={{ gap: '0.5rem', marginBottom: '0.5rem', flexWrap: 'wrap' }}>
-            <Button variant="primary" size="sm">Primary</Button>
-            <Button variant="secondary" size="md">Secondary</Button>
-            <Button variant="outline" size="lg">Outline</Button>
-            <Button variant="ghost">Ghost</Button>
+          
+          <Box mt={Spacing.Medium}>
+            <Text color={TextColor.Secondary}>
+              Create reusable component configurations:
+            </Text>
+            
+            <Box mt={Spacing.Medium}>
+              <Button {...primaryButtonConfig}>
+                Configured with Builder
+              </Button>
+            </Box>
           </Box>
-        </Box>
+        </Card>
 
-        {/* NEW: Badge Component - automatically themed! */}
-        <Box style={{ marginBottom: '2rem' }}>
-          <Text size="lg" weight="medium" style={{ marginBottom: '0.5rem' }}>
-            Badges <Badge variant="success" size="sm">New!</Badge>
+        {/* Contracts Object Section */}
+        <Card variant={CardVariant.Outlined} padding={CardPadding.Large}>
+          <Text 
+            as={TextElement.Heading2}
+            size={TextSize.ExtraLarge}
+            weight={TextWeight.Bold}
+            color={TextColor.Primary}
+          >
+            5. Contracts Object (Alternative Import)
           </Text>
-          <Box display="flex" style={{ gap: '0.5rem', marginBottom: '0.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
-            <Badge variant="primary">Primary</Badge>
-            <Badge variant="secondary">Secondary</Badge>
-            <Badge variant="success">Success</Badge>
-            <Badge variant="warning">Warning</Badge>
-            <Badge variant="error">Error</Badge>
-          </Box>
-          <Box display="flex" style={{ gap: '0.5rem', marginBottom: '0.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
-            <Badge variant="primary" outline>Primary Outline</Badge>
-            <Badge variant="success" outline>Success Outline</Badge>
-            <Badge variant="error" outline>Error Outline</Badge>
-          </Box>
-          <Box display="flex" style={{ gap: '0.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
-            <Badge variant="primary" size="sm">Small</Badge>
-            <Badge variant="primary" size="md">Medium</Badge>
-            <Badge variant="primary" size="lg">Large</Badge>
-          </Box>
-        </Box>
-
-        {/* Cards */}
-        <Box display="grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
-          <Card variant="elevated" padding="md">
-            <Text weight="medium" style={{ marginBottom: '0.5rem' }}>Elevated Card</Text>
-            <Text size="sm" color="secondary">Auto-themed shadow</Text>
-            <Box style={{ marginTop: '0.5rem' }}>
-              <Badge variant="primary" size="sm">Theme-aware</Badge>
-            </Box>
-          </Card>
-          <Card variant="outlined" padding="md">
-            <Text weight="medium" style={{ marginBottom: '0.5rem' }}>Outlined Card</Text>
-            <Text size="sm" color="secondary">Theme-aware border</Text>
-            <Box style={{ marginTop: '0.5rem' }}>
-              <Badge variant="success" size="sm">Consistent</Badge>
-            </Box>
-          </Card>
-          <Card variant="filled" padding="md">
-            <Text weight="medium" style={{ marginBottom: '0.5rem' }}>Filled Card</Text>
-            <Text size="sm" color="secondary">Clean design</Text>
-            <Box style={{ marginTop: '0.5rem' }}>
-              <Badge variant="warning" size="sm">Flexible</Badge>
-            </Box>
-          </Card>
-        </Box>
-      </Card>
-
-      {/* Theme Architecture */}
-      <Card padding="lg" style={{ marginBottom: '2rem' }}>
-        <Text as="h2" size="xl" weight="semibold" style={{ marginBottom: '1rem' }}>
-          🏗️ How It Works
-        </Text>
-        
-        <Box style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
-          <Box>
-            <Text weight="semibold" style={{ marginBottom: '0.5rem' }}>
-              1. Component Defines Theme
-            </Text>
-            <Text size="sm" color="secondary" style={{ marginBottom: '0.5rem' }}>
-              Each component has its own theme definition
-            </Text>
-            <Box p="md" bg="#f3f4f6" borderRadius="md">
-              <Text size="xs" fontFamily="mono">
-                {`// Badge/theme.ts
-interface BadgeTheme {
-  colors: { primary: {...} }
-  sizes: { sm: {...} }
-}
-
-declare module 'core' {
-  interface ComponentThemes {
-    badge: BadgeTheme;
-  }
-}`}
-              </Text>
-            </Box>
-          </Box>
-
-          <Box>
-            <Text weight="semibold" style={{ marginBottom: '0.5rem' }}>
-              2. Auto-Registration
-            </Text>
-            <Text size="sm" color="secondary" style={{ marginBottom: '0.5rem' }}>
-              Component registers theme on import
-            </Text>
-            <Box p="md" bg="#f3f4f6" borderRadius="md">
-              <Text size="xs" fontFamily="mono">
-                {`// Badge.tsx
-import { defaultBadgeTheme } from './theme';
-
-registerComponentTheme(
-  'badge', 
-  defaultBadgeTheme
-);`}
-              </Text>
-            </Box>
-          </Box>
-
-          <Box>
-            <Text weight="semibold" style={{ marginBottom: '0.5rem' }}>
-              3. Type-Safe Access
-            </Text>
-            <Text size="sm" color="secondary" style={{ marginBottom: '0.5rem' }}>
-              Full TypeScript support and intellisense
-            </Text>
-            <Box p="md" bg="#f3f4f6" borderRadius="md">
-              <Text size="xs" fontFamily="mono">
-                {`const badgeTheme = 
-  getComponentTheme<BadgeTheme>(
-    theme, 
-    'badge'
-  );
-
-// Full autocomplete!
-badgeTheme.colors.primary.background`}
-              </Text>
-            </Box>
-          </Box>
-        </Box>
-      </Card>
-
-      {/* Form Demo */}
-      <Card padding="lg">
-        <Text as="h2" size="xl" weight="semibold" style={{ marginBottom: '1rem' }}>
-          📝 All Components Working Together
-        </Text>
-        
-        <Box style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          <Input 
-            label="Project Name" 
-            placeholder="Enter project name"
-          />
-          <Input 
-            label="Description" 
-            placeholder="Brief description"
-          />
           
-          <Box display="flex" style={{ gap: '0.5rem', alignItems: 'center', marginTop: '1rem' }}>
-            <Badge variant="primary">Status:</Badge>
-            <Badge variant="success">Active</Badge>
+          <Box mt={Spacing.Medium}>
+            <Text color={TextColor.Secondary}>
+              Use the Contracts object for namespace organization:
+            </Text>
+            
+            <Box mt={Spacing.Medium}>
+              <Button 
+                variant={Contracts.ButtonVariant.Primary}
+                size={Contracts.ComponentSize.Large}
+              >
+                Using Contracts Object
+              </Button>
+            </Box>
           </Box>
+        </Card>
+
+        {/* Runtime Discovery Section */}
+        <Card variant={CardVariant.Filled} padding={CardPadding.Large}>
+          <Text 
+            as={TextElement.Heading2}
+            size={TextSize.ExtraLarge}
+            weight={TextWeight.Bold}
+            color={TextColor.Primary}
+          >
+            6. Runtime Option Discovery
+          </Text>
           
-          <Box display="flex" style={{ gap: '1rem', justifyContent: 'flex-end', marginTop: '1rem' }}>
-            <Button variant="outline">Cancel</Button>
-            <Button variant="primary">Save Project</Button>
+          <Box mt={Spacing.Medium}>
+            <Text color={TextColor.Secondary}>
+              Discover available options at runtime:
+            </Text>
+            
+            <Box mt={Spacing.Medium}>
+              <Text size={TextSize.Small} color={TextColor.Info}>
+                Button variants: {ComponentOptions.Button.variants.join(', ')}
+              </Text>
+              <Text size={TextSize.Small} color={TextColor.Info}>
+                Card variants: {ComponentOptions.Card.variants.join(', ')}
+              </Text>
+              <Text size={TextSize.Small} color={TextColor.Info}>
+                Component sizes: {ComponentOptions.Common.sizes.join(', ')}
+              </Text>
+            </Box>
           </Box>
-        </Box>
-      </Card>
+        </Card>
+
+        {/* Form Example Section */}
+        <Card variant={CardVariant.Elevated} padding={CardPadding.Large}>
+          <Text 
+            as={TextElement.Heading2}
+            size={TextSize.ExtraLarge}
+            weight={TextWeight.Bold}
+            color={TextColor.Primary}
+          >
+            7. Type-Safe Form Components
+          </Text>
+          
+          <Box mt={Spacing.Medium}>
+            <Input
+              label="Email Address"
+              type="email"
+              size={ComponentSize.Large}
+              placeholder="Enter your email"
+              helperText="We'll never share your email"
+            />
+            
+            <Box mt={Spacing.Medium}>
+              <Input
+                label="Password"
+                type="password"
+                size={ComponentSize.Medium}
+                placeholder="Create a password"
+                helperText="Minimum 8 characters"
+              />
+            </Box>
+          </Box>
+        </Card>
+
+        {/* Theme Integration Section */}
+        <Card variant={CardVariant.Outlined} padding={CardPadding.Large}>
+          <Text 
+            as={TextElement.Heading2}
+            size={TextSize.ExtraLarge}
+            weight={TextWeight.Bold}
+            color={TextColor.Primary}
+          >
+            8. Dynamic Theme Updates
+          </Text>
+          
+          <Box mt={Spacing.Medium}>
+            <Text color={TextColor.Secondary}>
+              Update themes with type-safe configuration:
+            </Text>
+            
+            <Box mt={Spacing.Medium}>
+              <Button 
+                variant={ButtonVariant.Primary}
+                size={ComponentSize.Large}
+                onClick={applyCustomTheme}
+              >
+                Apply Custom Theme
+              </Button>
+            </Box>
+            
+            <Box mt={Spacing.Medium}>
+              <Text 
+                color={TextColor.Secondary}
+                size={TextSize.Small}
+              >
+                Click to see theme update with type-safe configuration
+              </Text>
+            </Box>
+          </Box>
+        </Card>
+
+        {/* Developer Benefits Summary */}
+        <Card variant={CardVariant.Filled} padding={CardPadding.Large}>
+          <Text 
+            as={TextElement.Heading2}
+            size={TextSize.ExtraLarge}
+            weight={TextWeight.Bold}
+            color={TextColor.Primary}
+          >
+            Developer Experience Benefits
+          </Text>
+          
+          <Box mt={Spacing.Medium}>
+            <Flex direction={FlexDirection.Column} gap={Spacing.Small}>
+              <Text>✅ <strong>IntelliSense Support</strong> - Full autocomplete in your IDE</Text>
+              <Text>✅ <strong>Compile-time Safety</strong> - Catch errors before runtime</Text>
+              <Text>✅ <strong>Rich Documentation</strong> - JSDoc comments for every option</Text>
+              <Text>✅ <strong>Easy Refactoring</strong> - Rename operations work across codebase</Text>
+              <Text>✅ <strong>Consistency</strong> - Standardized naming patterns</Text>
+              <Text>✅ <strong>Type Guards</strong> - Runtime validation helpers</Text>
+              <Text>✅ <strong>Builder Patterns</strong> - Fluent configuration APIs</Text>
+              <Text>✅ <strong>Runtime Discovery</strong> - Explore options programmatically</Text>
+            </Flex>
+          </Box>
+        </Card>
+      </Flex>
     </Box>
   );
 }
