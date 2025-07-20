@@ -2,6 +2,18 @@
 
 ## [1.0.1](./changelogs/v1.0.1.md) - 2025-07-20
 
+**Highlights**: 1 new feature
+
+### ✨ Features
+- Minor button component update for v1.0.1 by @bretski00
+
+*...and 1 more changes*
+
+[View full changelog](./changelogs/v1.0.1.md)
+
+
+## [1.0.1](./changelogs/v1.0.1.md) - 2025-07-20
+
 **Highlights**: 7 new components
 
 ### 🆕 New Components
