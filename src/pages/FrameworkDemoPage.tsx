@@ -51,10 +51,8 @@ export function FrameworkDemoPage() {
           colors: {
             [ButtonVariant.Primary]: {
               background: '#ff6b35',
-              foreground: '#ffffff',
-              hover: {
-                background: '#e55a2b'
-              }
+              text: '#ffffff',
+              backgroundHover: '#e55a2b'
             }
           }
         }

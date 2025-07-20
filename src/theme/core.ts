@@ -20,7 +20,16 @@ export interface Theme extends CoreTheme {
   components: ComponentThemes;
   /** All registered layout themes */
   layouts: import('../layouts/core').LayoutThemes;
-}cess core theme values
+}
+
+/**
+ * Core theme interface containing base design tokens.
+ * This interface defines the fundamental design system values
+ * that all components can access through the theme context.
+ * 
+ * @example
+ * ```typescript
+ * // Access core theme values
  * const { theme } = useTheme();
  * const primaryColor = theme.colors.primary;
  * const fontSize = theme.typography.fontSize.lg;

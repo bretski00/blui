@@ -1,0 +1,46 @@
+# Source files (only dist should be included)
+src/
+
+# Development files
+.vscode/
+.git/
+.gitignore
+node_modules/
+coverage/
+
+# Demo/Example files
+src/pages/
+src/examples/
+src/demo/
+src/__tests__/
+
+# Development configuration
+vite.config.ts
+tsconfig*.json
+eslint.config.js
+.eslintrc*
+
+# Build artifacts (keep only dist)
+*.log
+*.tmp
+.cache/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+*~
+
+# Development documentation
+DEVELOPER_EXPERIENCE.md
+IMPLEMENTATION_SUMMARY.md
+
+# Keep these files
+!README.md
+!API_REFERENCE.md
+!FRAMEWORK_README.md
+!package.json
+!dist/

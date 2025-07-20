@@ -82,6 +82,20 @@ export function getRegisteredLayoutNames(): string[] {
 }
 
 /**
+ * Gets all registered layout themes as a complete object.
+ * This is used by the theme system to build the complete theme.
+ * 
+ * @returns Object containing all registered layout themes
+ */
+export function getRegisteredLayoutThemes(): LayoutThemes {
+  const layouts = {} as LayoutThemes;
+  for (const [name, theme] of layoutThemeRegistry.entries()) {
+    (layouts as any)[name] = theme;
+  }
+  return layouts;
+}
+
+/**
  * Checks if a layout theme is registered.
  * 
  * @param layoutName - The name of the layout to check

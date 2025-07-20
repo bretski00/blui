@@ -3,6 +3,7 @@ import type { HTMLAttributes } from 'react';
 import { registerComponentTheme, getComponentTheme } from '../theme/registry';
 import { useTheme } from '../theme';
 import { defaultBadgeTheme, type BadgeTheme } from './Badge/theme';
+// @ts-ignore - Used in JSDoc comments for documentation
 import { ComponentVariant, ComponentSize } from '../contracts';
 
 // Register the badge theme when the module loads

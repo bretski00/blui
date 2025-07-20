@@ -4,8 +4,6 @@ import type { Theme, ThemeOverride } from './core';
 import { defaultCoreTheme } from './defaultTheme';
 import { createTheme, createCSSVariables, applyCSSVariables } from './utils';
 import { createCompleteTheme, getComponentTheme } from './registry';
-import { LayoutProvider } from '../layouts/LayoutProvider';
-import type { LayoutThemeOverride } from '../layouts/core';
 
 /**
  * Context value interface for the theme system.

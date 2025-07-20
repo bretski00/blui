@@ -1,4 +1,5 @@
 import type { CoreTheme, ComponentThemes, Theme } from './core';
+import { getRegisteredLayoutThemes } from '../layouts/registry';
 
 /**
  * Global registry for component themes.
@@ -66,6 +67,7 @@ export function createCompleteTheme(coreTheme: CoreTheme): Theme {
   return {
     ...coreTheme,
     components: getRegisteredComponentThemes() as ComponentThemes,
+    layouts: getRegisteredLayoutThemes(),
   };
 }
 
