@@ -8,6 +8,8 @@
   ],
   "type": "module",
   "scripts": {
+    "install:workspaces": "npm install --workspaces",
+    "install:all": "npm install && npm install --workspaces",
     "dev": "npm run dev -w blui-docs",
     "dev:docs": "npm run dev -w blui-docs",
     "build": "npm run build -w blui && npm run build -w blui-docs",
