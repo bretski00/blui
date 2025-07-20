@@ -64,7 +64,24 @@ npm run build
 
 # Generate documentation
 npm run docs:generate
+
+# Watch documentation changes
+npm run docs:watch
+
+# Version management
+npm run version patch    # 1.0.0 -> 1.0.1
+npm run version minor    # 1.0.0 -> 1.1.0  
+npm run version major    # 1.0.0 -> 2.0.0
+
+# Generate changelog
+npm run changelog:generate
 ```
+
+## 📋 Changelog
+
+See [CHANGELOG.md](./CHANGELOG.md) for a complete list of changes in each version.
+
+Version-specific changelogs are available in the [`changelogs/`](./changelogs/) directory.
 
 ## 📖 API Reference
 
