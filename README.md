@@ -1,6 +1,6 @@
-# BLUI UI Framework
+# BLUI - React Component Library
 
-A React component library with documentation built in.
+A React-based UI framework with a powerful, extensible theme system that allows developers to customize every aspect of the design while maintaining consistency across components.
 
 ## 🚀 Quick Start
 
@@ -8,7 +8,6 @@ A React component library with documentation built in.
 npm install blui
 ```
 
-Sample quick application
 ```tsx
 import { ThemeProvider, Button, Card, Text } from 'blui';
 
@@ -41,12 +40,12 @@ function App() {
 
 ## ✨ Features
 
-- **Extensible Theme System** - Customize every aspect of component styling
-- **Layout Provider** - Spatial configuration for different layout contexts
-- **Responsive Design** - Built-in breakpoint system
-- **TypeScript Support** - Full type safety and IntelliSense
-- **Type Contracts** - Consistent, type-safe component APIs
-- **Runtime Updates** - Dynamic theme and layout changes
+- 🎨 **Extensible Theme System** - Customize every aspect of component styling
+- 🔧 **Layout Provider** - Spatial configuration for different layout contexts
+- 📱 **Responsive Design** - Built-in breakpoint system
+- 💪 **TypeScript Support** - Full type safety and IntelliSense
+- 🎯 **Type Contracts** - Consistent, type-safe component APIs
+- 🔄 **Runtime Updates** - Dynamic theme and layout changes
 
 ## 🛠️ Development
 
@@ -63,3 +62,11 @@ npm run build
 # Generate documentation
 npm run docs:generate
 ```
+
+## 📖 API Reference
+
+For detailed API documentation, see [API_REFERENCE.md](./API_REFERENCE.md).
+
+---
+
+*Documentation auto-generated from JSDoc comments. Last updated: 2025-07-20*

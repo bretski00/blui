@@ -1,8 +1,6 @@
 # Navbar
 
-Navbar component (documentation pending)
-
-> ⚠️ **This component is not yet fully documented.** JSDoc comments are needed to generate complete documentation.
+Props for the Navbar component. Extends standard HTML nav attributes with a headless design pattern for maximum flexibility and theming capabilities.
 
 ## Installation
 
@@ -18,14 +16,16 @@ import { Navbar } from 'blui';
 </Navbar>
 ```
 
-## Contributing
+## Props
 
-This component needs documentation! To help:
-
-1. Add JSDoc comments to the component interface
-2. Include `@example` tags with usage examples  
-3. Document all props with descriptions
-4. Run `npm run docs:generate` to update documentation
+| Prop | Type | Required | Description |
+|------|------|----------|-------------|
+| `brand` | `ReactNode` | ❌ | Props for the Navbar component. Extends standard HTML nav attributes with a headless design pattern for maximum flexibility and theming capabilities. |
+| `navigation` | `ReactNode` | ❌ | Content to display in the main navigation section (center) |
+| `actions` | `ReactNode` | ❌ | Content to display in the actions section (right side) |
+| `children` | `ReactNode` | ❌ | Optional children to completely override the default layout |
+| `sticky` | `boolean` | ❌ | Whether to use sticky positioning |
+| `theme` | `Partial<NavbarTheme>` | ❌ | Custom theme overrides for this instance |
 
 ## Source
 
@@ -33,4 +33,4 @@ This component needs documentation! To help:
 
 ---
 
-*Component detected but not documented. Please add JSDoc comments.*
+*Generated automatically from JSDoc comments. Last updated: 2025-07-20*

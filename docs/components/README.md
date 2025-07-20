@@ -32,6 +32,13 @@ Props for the Card component
 **Source:** [`/src/components/Card.tsx`](../src/components/Card.tsx)  
 **Since:** v1.0.0
 
+### [DocumentationNavbar](./DocumentationNavbar.md) ⚠️ *Needs Documentation*
+
+DocumentationNavbar component (documentation pending)
+
+**Source:** [`/src/components/DocumentationNavbar.tsx`](../src/components/DocumentationNavbar.tsx)  
+**Since:** v1.0.0
+
 ### [Input](./Input.md)
 
 Props for the Input component
@@ -39,9 +46,9 @@ Props for the Input component
 **Source:** [`/src/components/Input.tsx`](../src/components/Input.tsx)  
 **Since:** v1.0.0
 
-### [Navbar](./Navbar.md) ⚠️ *Needs Documentation*
+### [Navbar](./Navbar.md)
 
-Navbar component (documentation pending)
+Props for the Navbar component
 
 **Source:** [`/src/components/Navbar.tsx`](../src/components/Navbar.tsx)  
 **Since:** v1.0.0
@@ -68,11 +75,11 @@ Props for the Text component
 - [Text](./Text.md) - Props for the Text component
 
 ### Navigation Components
-- [Navbar](./Navbar.md) ⚠️ - Navbar component (documentation pending)
+- [Navbar](./Navbar.md) - Props for the Navbar component
 
 ## Documentation Status
 
-📚 **Fully Documented:** 5 components  
+📚 **Fully Documented:** 6 components  
 ⚠️ **Needs Documentation:** 2 components
 
 Components marked with ⚠️ need JSDoc comments to generate complete documentation.
