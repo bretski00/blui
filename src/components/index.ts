@@ -62,6 +62,7 @@ export { Badge } from './Badge';
 export type { BadgeProps } from './Badge';
 
 export { Navbar } from './Navbar';
+export { DocumentationNavbar } from './DocumentationNavbar';
 
 // =============================================================================
 // TYPE CONTRACTS & CONSTANTS

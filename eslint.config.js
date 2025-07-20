@@ -46,15 +46,18 @@ export default tseslint.config([
             FunctionDeclaration: true,
             MethodDefinition: true,
             ClassDeclaration: true,
-            ArrowFunctionExpression: true,
-            FunctionExpression: true,
+            ArrowFunctionExpression: false, // Disable for arrow functions (like event handlers)
+            FunctionExpression: false, // Disable for function expressions (like forwardRef callbacks)
           },
           contexts: [
             'TSInterfaceDeclaration',
             'TSTypeAliasDeclaration',
-            'ExportDefaultDeclaration > *',
-            'ExportNamedDeclaration > *',
+            // Remove these problematic contexts that catch forwardRef and displayName assignments
+            // 'ExportDefaultDeclaration > *',
+            // 'ExportNamedDeclaration > *',
           ],
+          exemptEmptyFunctions: true,
+          exemptEmptyConstructors: true,
         },
       ],
       'jsdoc/require-example': 'warn',

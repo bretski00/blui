@@ -1,128 +1,157 @@
-import { Link, useLocation } from 'react-router-dom';
-import { Box, Text, Button } from '../index';
+import { forwardRef } from 'react';
+import type { HTMLAttributes, ReactNode } from 'react';
+import { Box } from './Box';
+import { useTheme } from '../theme';
+import { registerComponentTheme, getComponentTheme } from '../theme/registry';
+import { defaultNavbarTheme, type NavbarTheme } from './Navbar/theme';
 
-interface NavItem {
-  path: string;
-  label: string;
-  description?: string;
+// Register the navbar theme when the module loads
+registerComponentTheme('navbar', defaultNavbarTheme);
+
+/**
+ * Props for the Navbar component.
+ * 
+ * Extends standard HTML nav attributes with a headless design pattern
+ * for maximum flexibility and theming capabilities.
+ * 
+ * @since 1.0.0
+ */
+export interface NavbarProps extends Omit<HTMLAttributes<HTMLElement>, 'children'> {
+  /** Content to display in the brand/logo section (left side) */
+  brand?: ReactNode;
+  /** Content to display in the main navigation section (center) */
+  navigation?: ReactNode;
+  /** Content to display in the actions section (right side) */
+  actions?: ReactNode;
+  /** Optional children to completely override the default layout */
+  children?: ReactNode;
+  /** Whether to use sticky positioning */
+  sticky?: boolean;
+  /** Custom theme overrides for this instance */
+  theme?: Partial<NavbarTheme>;
 }
 
-const navItems: NavItem[] = [
-  { 
-    path: '/', 
-    label: 'Framework Demo', 
-    description: 'Theme system showcase' 
-  },
-  { 
-    path: '/playground', 
-    label: 'Theme Playground', 
-    description: 'Interactive customization' 
-  },
-  { 
-    path: '/components', 
-    label: 'Component Playground', 
-    description: 'Test components & layouts' 
-  },
-  { 
-    path: '/layouts', 
-    label: 'Layout System', 
-    description: 'Grid & Flex layouts' 
-  },
-  { 
-    path: '/consuming-app', 
-    label: 'Consuming App', 
-    description: 'Real-world example' 
-  },
-];
+/**
+ * Headless navigation bar component for flexible navigation layouts.
+ * 
+ * Provides a themeable container with optional sections for brand, navigation,
+ * and actions. Can be used as a headless component by passing children directly,
+ * or with the structured props for common navigation patterns.
+ * 
+ * The component follows the framework's theme system and can be customized
+ * through the theme registry or instance-specific theme overrides.
+ * 
+ * @param props - The navbar component props
+ * @returns JSX element representing a navigation container
+ * 
+ * @example
+ * Use with brand, navigation, and actions props for structured layout.
+ * Use with children prop for complete custom layout control.
+ * Theme can be customized through theme prop or global theme registry.
+ *
+ * @since 1.0.0
+ */
+/**
+ * Internal implementation function for the Navbar component.
+ * 
+ * @param props - The navbar component props
+ * @param props.brand - Content to display in the brand/logo section (left side)
+ * @param props.navigation - Content to display in the main navigation section (center)
+ * @param props.actions - Content to display in the actions section (right side)
+ * @param props.children - Optional children to completely override the default layout
+ * @param props.sticky - Whether to use sticky positioning
+ * @param props.theme - Custom theme overrides for this instance
+ * @param props.style - Additional inline styles
+ * @param ref - Forwarded ref to the nav element
+ * @returns JSX element representing the navbar
+ * 
+ * @example
+ * This is an internal function used by the exported Navbar component.
+ * Use the exported Navbar component instead of calling this directly.
+ */
+function NavbarComponent(
+  { brand, navigation, actions, children, sticky = true, theme: themeOverride, style, ...props }: NavbarProps,
+  ref: React.ForwardedRef<HTMLElement>
+) {
+  const { theme } = useTheme();
+  const navbarTheme = getComponentTheme<NavbarTheme>(theme, 'navbar');
+  const appliedTheme = themeOverride ? { ...navbarTheme, ...themeOverride } : navbarTheme;
 
-export function Navbar() {
-  const location = useLocation();
+  const containerStyle = {
+    backgroundColor: appliedTheme.container.backgroundColor,
+    borderBottom: `${appliedTheme.container.borderWidth} solid ${appliedTheme.container.borderColor}`,
+    boxShadow: appliedTheme.container.boxShadow,
+    position: sticky ? appliedTheme.container.position : 'static' as const,
+    top: sticky ? appliedTheme.container.top : 'auto',
+    zIndex: sticky ? appliedTheme.container.zIndex : 'auto',
+    height: appliedTheme.container.height,
+    ...style,
+  };
 
+  const contentStyle = {
+    maxWidth: appliedTheme.content.maxWidth,
+    margin: '0 auto',
+    padding: `${appliedTheme.content.padding?.y || '0'} ${appliedTheme.content.padding?.x || '0'}`,
+    display: appliedTheme.content.display,
+    alignItems: appliedTheme.content.alignItems,
+    justifyContent: appliedTheme.content.justifyContent,
+    height: '100%',
+  };
+
+  // If children are provided, use headless mode
+  if (children) {
+    return (
+      <Box
+        ref={ref}
+        as="nav"
+        style={containerStyle}
+        {...props}
+      >
+        {children}
+      </Box>
+    );
+  }
+
+  // Otherwise, use structured layout
   return (
     <Box
+      ref={ref}
       as="nav"
-      style={{
-        borderBottom: '1px solid #e5e7eb',
-        backgroundColor: '#ffffff',
-        position: 'sticky',
-        top: 0,
-        zIndex: 100,
-        boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.1)',
-      }}
+      style={containerStyle}
+      {...props}
     >
-      <Box
-        maxW="1200px"
-        mx="auto"
-        px="lg"
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          height: '64px',
-        }}
-      >
-        {/* Logo/Brand */}
-        <Box style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-          <Text as="h1" size="xl" weight="bold">
-            🎨 UI Framework
-          </Text>
-          <Text size="sm" color="secondary">
-            v1.0.0
-          </Text>
-        </Box>
-
-        {/* Navigation Links */}
-        <Box style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          {navItems.map((item) => {
-            const isActive = location.pathname === item.path;
-            
-            return (
-              <Link
-                key={item.path}
-                to={item.path}
-                style={{ textDecoration: 'none' }}
-              >
-                <Button
-                  variant={isActive ? 'primary' : 'ghost'}
-                  size="sm"
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    height: 'auto',
-                    padding: '0.5rem 1rem',
-                    minWidth: '120px',
-                  }}
-                >
-                  <Text size="sm" weight="medium">
-                    {item.label}
-                  </Text>
-                  {item.description && (
-                    <Text 
-                      size="xs" 
-                      color={isActive ? 'inherit' : 'secondary'}
-                      style={{ opacity: 0.8 }}
-                    >
-                      {item.description}
-                    </Text>
-                  )}
-                </Button>
-              </Link>
-            );
-          })}
-        </Box>
-
-        {/* Additional Actions */}
-        <Box style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <Button 
-            variant="outline" 
-            size="sm"
-            onClick={() => window.open('https://github.com', '_blank')}
-          >
-            GitHub
-          </Button>
-        </Box>
+      <Box style={contentStyle}>
+        {brand && (
+          <Box style={appliedTheme.brand}>
+            {brand}
+          </Box>
+        )}
+        
+        {navigation && (
+          <Box style={appliedTheme.navigation}>
+            {navigation}
+          </Box>
+        )}
+        
+        {actions && (
+          <Box style={appliedTheme.actions}>
+            {actions}
+          </Box>
+        )}
       </Box>
     </Box>
   );
 }
+
+/**
+ * Navbar component with forwardRef support for flexible navigation layouts.
+ * 
+ * @example
+ * Use with brand, navigation, and actions props for structured layout.
+ * Use with children prop for complete custom layout control.
+ * Theme can be customized through theme prop or global theme registry.
+ * 
+ * @since 1.0.0
+ */
+export const Navbar = forwardRef<HTMLElement, NavbarProps>(NavbarComponent);
+Navbar.displayName = 'Navbar';
