@@ -1,6 +1,9 @@
 {
-  "name": "blui",
-  "version": "1.0.1",
+  "name": "@bretski00/blui",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "version": "1.0.2",
   "description": "A React component library with extensible theme system",
   "type": "module",
   "main": "./dist/blui.umd.js",
