@@ -8,6 +8,7 @@ A React-based UI framework with a powerful, extensible theme system that allows 
 npm install blui
 ```
 
+Sample quick application
 ```tsx
 import { ThemeProvider, Button, Card, Text } from 'blui';
 

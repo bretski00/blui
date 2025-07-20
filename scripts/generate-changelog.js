@@ -42,12 +42,31 @@ function getCurrentVersion() {
  */
 function getPreviousVersion() {
   try {
+    // Get all version tags sorted by version
     const tags = execSync('git tag --sort=-version:refname', { 
       encoding: 'utf-8',
       cwd: ROOT_DIR 
     }).trim().split('\n').filter(Boolean);
     
-    return tags.length > 0 ? tags[0] : null;
+    // Filter only version tags (v1.0.0, 1.0.0, etc.)
+    const versionTags = tags.filter(tag => 
+      tag.match(/^v?\d+\.\d+\.\d+$/)
+    );
+    
+    // Get current version to find the previous one
+    const currentVersion = getCurrentVersion();
+    const currentVersionTag = versionTags.find(tag => 
+      tag === `v${currentVersion}` || tag === currentVersion
+    );
+    
+    // If current version exists as a tag, get the next one
+    if (currentVersionTag) {
+      const currentIndex = versionTags.indexOf(currentVersionTag);
+      return currentIndex < versionTags.length - 1 ? versionTags[currentIndex + 1] : null;
+    }
+    
+    // If current version doesn't exist as tag, return the latest tag
+    return versionTags.length > 0 ? versionTags[0] : null;
   } catch (error) {
     return null;
   }
@@ -74,6 +93,172 @@ function getCommitsSinceLastVersion(lastVersion) {
     console.warn('Could not get git commits:', error.message);
     return [];
   }
+}
+
+/**
+ * Detect component-related changes from commits and file changes
+ */
+function detectComponentChanges(commits) {
+  const componentChanges = {
+    created: [],
+    modified: [],
+    deprecated: []
+  };
+
+  commits.forEach(commit => {
+    const { hash, subject, body } = commit;
+    
+    try {
+      // Get files changed in this commit
+      const filesChanged = execSync(`git diff-tree --no-commit-id --name-only -r ${hash}`, {
+        encoding: 'utf-8',
+        cwd: ROOT_DIR
+      }).trim().split('\n').filter(Boolean);
+
+      // Check for new component files
+      const componentFiles = filesChanged.filter(file => isComponentFile(file));
+
+      componentFiles.forEach(file => {
+        const componentName = extractComponentNameFromPath(file);
+        if (!componentName) return;
+
+        try {
+          // Check if this is a new file (doesn't exist in parent commit)
+          execSync(`git cat-file -e ${hash}~1:${file} 2>nul`, {
+            encoding: 'utf-8',
+            cwd: ROOT_DIR,
+            stdio: 'pipe'
+          });
+          
+          // File existed before, so it's modified
+          if (!componentChanges.modified.find(c => c.name === componentName)) {
+            componentChanges.modified.push({
+              name: componentName,
+              file: file,
+              commit: commit
+            });
+          }
+        } catch (error) {
+          // File didn't exist before, so it's new
+          if (!componentChanges.created.find(c => c.name === componentName)) {
+            try {
+              const fileContent = execSync(`git show ${hash}:${file}`, {
+                encoding: 'utf-8',
+                cwd: ROOT_DIR,
+                stdio: 'pipe'
+              });
+              const description = extractComponentDescription(fileContent);
+              
+              componentChanges.created.push({
+                name: componentName,
+                file: file,
+                commit: commit,
+                description: description || `New ${componentName} component`
+              });
+            } catch (contentError) {
+              // Fallback if we can't read the file content
+              componentChanges.created.push({
+                name: componentName,
+                file: file,
+                commit: commit,
+                description: `New ${componentName} component`
+              });
+            }
+          }
+        }
+      });
+
+    } catch (error) {
+      // Skip if we can't get file changes for this commit
+    }
+  });
+
+  return deduplicateComponents(componentChanges);
+}
+
+/**
+ * Extract component name from file path
+ */
+function extractComponentNameFromPath(filePath) {
+  // Match patterns like: src/components/Button/index.tsx or src/components/Button/Button.tsx
+  const match = filePath.match(/\/components\/([A-Z][a-zA-Z]+)\//);
+  if (match) return match[1];
+
+  // Match single file components: src/components/Button.tsx
+  const singleFileMatch = filePath.match(/\/components\/([A-Z][a-zA-Z]+)\.tsx?$/);
+  if (singleFileMatch) return singleFileMatch[1];
+
+  return null;
+}
+
+/**
+ * Extract component description from JSDoc comment
+ */
+function extractComponentDescription(content) {
+  // Look for proper JSDoc comments (ignore random comments)
+  const jsdocPatterns = [
+    // Main JSDoc block: /** * Description */
+    /\/\*\*\s*\n\s*\*\s*([^@\n*][^\n*]{10,})/,
+    // Single line JSDoc: /** Description */
+    /\/\*\*\s*([^@*][^*]{10,})\s*\*\//,
+    // Component description pattern
+    /\/\*\*[\s\S]*?\*\s*([A-Z][^@\n*]{15,}?)[\s\n*]/
+  ];
+
+  for (const pattern of jsdocPatterns) {
+    const match = content.match(pattern);
+    if (match) {
+      let description = match[1].trim();
+      // Clean up common JSDoc artifacts
+      description = description
+        .replace(/\s*\*+\s*/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+      
+      // Only return if it's a meaningful description (not just "Props" or single words)
+      if (description.length > 10 && !description.match(/^(props?|component|new)$/i)) {
+        return description;
+      }
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Deduplicate component changes (remove modified if already in created)
+ */
+function deduplicateComponents(componentChanges) {
+  // If a component is both created and modified, only show as created
+  const createdNames = new Set(componentChanges.created.map(c => c.name));
+  componentChanges.modified = componentChanges.modified.filter(
+    c => !createdNames.has(c.name)
+  );
+  
+  // Remove duplicates within each category
+  componentChanges.created = componentChanges.created.filter((component, index, self) =>
+    index === self.findIndex(c => c.name === component.name)
+  );
+  
+  componentChanges.modified = componentChanges.modified.filter((component, index, self) =>
+    index === self.findIndex(c => c.name === component.name)
+  );
+  
+  return componentChanges;
+}
+
+/**
+ * Check if a file is a component file
+ */
+function isComponentFile(filePath) {
+  return filePath.match(/^src\/components\//) && 
+         filePath.match(/\.(tsx?|jsx?)$/) &&
+         !filePath.includes('.test.') &&
+         !filePath.includes('.stories.') &&
+         !filePath.includes('.spec.') &&
+         !filePath.includes('/theme.') &&
+         !filePath.endsWith('/theme.ts') &&
+         !filePath.endsWith('/theme.js');
 }
 
 /**
@@ -164,6 +349,7 @@ function formatCommit(commit, includeHash = true) {
  */
 function generateVersionChangelog(version, commits, previousVersion) {
   const categories = categorizeCommits(commits);
+  const componentChanges = detectComponentChanges(commits);
   const date = new Date().toISOString().split('T')[0];
   
   let changelog = `# Changelog for v${version}
@@ -176,6 +362,21 @@ function generateVersionChangelog(version, commits, previousVersion) {
     changelog += `> **Comparison**: [v${previousVersion}...v${version}](../../compare/v${previousVersion}...v${version})
 
 `;
+  }
+
+  // Add component summary if there are component changes
+  const totalComponents = componentChanges.created.length + componentChanges.modified.length;
+  if (totalComponents > 0) {
+    changelog += `## 🧩 Component Changes
+
+`;
+    if (componentChanges.created.length > 0) {
+      changelog += `**New Components:** ${componentChanges.created.map(c => c.name).join(', ')}\n`;
+    }
+    if (componentChanges.modified.length > 0) {
+      changelog += `**Updated Components:** ${componentChanges.modified.map(c => c.name).join(', ')}\n`;
+    }
+    changelog += '\n';
   }
 
   // Add summary
@@ -193,6 +394,10 @@ This release includes ${totalChanges} change${totalChanges === 1 ? '' : 's'} acr
 
 `;
     
+    if (totalComponents > 0) {
+      changelog += `- **Components**: ${totalComponents} change${totalComponents === 1 ? '' : 's'}\n`;
+    }
+    
     Object.entries(categories).forEach(([category, commits]) => {
       if (commits.length > 0) {
         const categoryName = category.charAt(0).toUpperCase() + category.slice(1);
@@ -200,6 +405,31 @@ This release includes ${totalChanges} change${totalChanges === 1 ? '' : 's'} acr
       }
     });
     
+    changelog += '\n';
+  }
+
+  // New Components Section (add this before breaking changes)
+  if (componentChanges.created.length > 0) {
+    changelog += `## 🆕 New Components
+
+`;
+    componentChanges.created.forEach(component => {
+      const description = component.description || `New ${component.name} component`;
+      const commitLink = `([${component.commit.hash}](../../commit/${component.commit.hash}))`;
+      changelog += `- **${component.name}**: ${description} ${commitLink}\n`;
+    });
+    changelog += '\n';
+  }
+
+  // Component Updates Section
+  if (componentChanges.modified.length > 0) {
+    changelog += `## 🔄 Component Updates
+
+`;
+    componentChanges.modified.forEach(component => {
+      const commitLink = `([${component.commit.hash}](../../commit/${component.commit.hash}))`;
+      changelog += `- **${component.name}**: Updated ${commitLink}\n`;
+    });
     changelog += '\n';
   }
 
@@ -307,6 +537,7 @@ ${categories.other.map(commit => formatCommit(commit)).join('\n')}
  */
 function updateMainChangelog(version, previousVersion, commits) {
   const categories = categorizeCommits(commits);
+  const componentChanges = detectComponentChanges(commits);
   const date = new Date().toISOString().split('T')[0];
   
   let existingContent = '';
@@ -321,18 +552,30 @@ function updateMainChangelog(version, previousVersion, commits) {
 
   // Add brief summary for main changelog
   const totalChanges = Object.values(categories).flat().length;
+  const totalComponents = componentChanges.created.length + componentChanges.modified.length;
+  
   if (totalChanges > 0) {
     const breakingCount = categories.breaking.length;
     const featureCount = categories.features.length;
     const fixCount = categories.fixes.length;
 
     const summaryParts = [];
+    if (componentChanges.created.length > 0) summaryParts.push(`${componentChanges.created.length} new component${componentChanges.created.length === 1 ? '' : 's'}`);
     if (breakingCount > 0) summaryParts.push(`${breakingCount} breaking change${breakingCount === 1 ? '' : 's'}`);
     if (featureCount > 0) summaryParts.push(`${featureCount} new feature${featureCount === 1 ? '' : 's'}`);
     if (fixCount > 0) summaryParts.push(`${fixCount} bug fix${fixCount === 1 ? '' : 'es'}`);
 
     if (summaryParts.length > 0) {
       newEntry += `**Highlights**: ${summaryParts.join(', ')}\n\n`;
+    }
+
+    // Show new components first
+    if (componentChanges.created.length > 0) {
+      newEntry += `### 🆕 New Components\n`;
+      componentChanges.created.slice(0, 3).forEach(component => {
+        newEntry += `- **${component.name}**: ${component.description}\n`;
+      });
+      newEntry += '\n';
     }
 
     // Show top changes in each category (limit to 3 per category)
@@ -346,8 +589,13 @@ function updateMainChangelog(version, previousVersion, commits) {
       newEntry += `### 🐛 Fixes\n${categories.fixes.slice(0, 3).map(commit => formatCommit(commit, false)).join('\n')}\n\n`;
     }
 
-    if (totalChanges > 9) {
-      newEntry += `*...and ${totalChanges - 9} more changes*\n\n`;
+    const totalShown = (componentChanges.created.length > 0 ? Math.min(3, componentChanges.created.length) : 0) + 
+                      Math.min(3, categories.breaking.length) + 
+                      Math.min(3, categories.features.length) + 
+                      Math.min(3, categories.fixes.length);
+    
+    if (totalChanges + totalComponents > totalShown) {
+      newEntry += `*...and ${(totalChanges + totalComponents) - totalShown} more changes*\n\n`;
     }
   } else {
     newEntry += `No significant changes in this release.\n\n`;
