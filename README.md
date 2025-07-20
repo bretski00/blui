@@ -50,16 +50,26 @@ function App() {
 
 ## 🛠️ Development
 
+### Initial Setup
+
 ```bash
-# Install dependencies
-npm install
+# Install all dependencies for the monorepo
+npm run install:all
 
-# Start development
+# Start development with documentation app
 npm run dev
+```
 
+### Other Commands
+
+```bash
 # Build library
 npm run build
 
 # Generate documentation
 npm run docs:generate
 ```
+
+### Contributing
+
+For detailed information on contributing to BLUI, including adding new components and following our development standards, please see our [Contributing Guide](./CONTRIBUTING.md).
