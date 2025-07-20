@@ -46,9 +46,7 @@
     "preview": "vite preview",
     "docs:generate": "node scripts/generate-docs.js",
     "docs:watch": "node scripts/watch-docs.js",
-    "changelog:generate": "node scripts/generate-changelog.js",
-    "version": "node scripts/version-bump.js",
-    "prepublishOnly": "npm run build && npm run docs:generate && npm run changelog:generate"
+    "prepublishOnly": "npm run build && npm run docs:generate"
   },
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",
