@@ -30,11 +30,8 @@ function App() {
 ## 📚 Documentation
 
 ### Components
-- [Badge](./docs/components/Badge.md)
-- [Button](./docs/components/Button.md)
-- [Card](./docs/components/Card.md)
-- [Input](./docs/components/Input.md)
-- [Text](./docs/components/Text.md)
+- [All Components](./docs/components/README.md) - Complete component library reference
+- [Individual Component Docs](./docs/components/) - Detailed documentation for each component
 
 ### Architecture
 - [Theme System](./docs/themes/README.md)

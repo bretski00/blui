@@ -52,7 +52,29 @@ function extractComponentInfo(filePath) {
   const interfaceMatch = content.match(/\/\*\*([\s\S]*?)\*\/\s*export interface (\w+Props)/);
   const componentMatch = content.match(/\/\*\*([\s\S]*?)\*\/\s*export const (\w+) = forwardRef/);
   
+  // If no JSDoc found, try to extract basic component info
   if (!interfaceMatch && !componentMatch) {
+    // Check if it has an interface and export const
+    const basicInterfaceMatch = content.match(/export interface (\w+Props)/);
+    const basicComponentMatch = content.match(/export const (\w+) = forwardRef|export function (\w+)/);
+    
+    if (basicInterfaceMatch || basicComponentMatch) {
+      const componentName = basicInterfaceMatch 
+        ? basicInterfaceMatch[1].replace('Props', '') 
+        : (basicComponentMatch[1] || basicComponentMatch[2]);
+      
+      return {
+        name: componentName,
+        fileName,
+        description: `${componentName} component (documentation pending)`,
+        since: '1.0.0',
+        examples: [],
+        props: [],
+        filePath: filePath.replace(ROOT_DIR, '').replace(/\\/g, '/'),
+        undocumented: true
+      };
+    }
+    
     return null;
   }
 
@@ -107,7 +129,8 @@ function extractComponentInfo(filePath) {
     since,
     examples,
     props: propsInfo,
-    filePath: filePath.replace(ROOT_DIR, '').replace(/\\/g, '/')
+    filePath: filePath.replace(ROOT_DIR, '').replace(/\\/g, '/'),
+    undocumented: false
   };
 }
 
@@ -115,7 +138,48 @@ function extractComponentInfo(filePath) {
  * Generate markdown documentation for a component
  */
 function generateComponentMarkdown(componentInfo) {
-  const { name, description, since, examples, props, filePath } = componentInfo;
+  const { name, description, since, examples, props, filePath, undocumented } = componentInfo;
+  
+  if (undocumented) {
+    // Generate basic documentation for undocumented components
+    return `# ${name}
+
+${description}
+
+> ⚠️ **This component is not yet fully documented.** JSDoc comments are needed to generate complete documentation.
+
+## Installation
+
+\`\`\`tsx
+import { ${name} } from 'blui';
+\`\`\`
+
+## Basic Usage
+
+\`\`\`tsx
+<${name}>
+  Content
+</${name}>
+\`\`\`
+
+## Contributing
+
+This component needs documentation! To help:
+
+1. Add JSDoc comments to the component interface
+2. Include \`@example\` tags with usage examples  
+3. Document all props with descriptions
+4. Run \`npm run docs:generate\` to update documentation
+
+## Source
+
+[\`${filePath}\`](..${filePath})
+
+---
+
+*Component detected but not documented. Please add JSDoc comments.*
+`;
+  }
   
   let markdown = `# ${name}
 
@@ -198,7 +262,7 @@ Welcome to the BLUI component library documentation. This documentation is autom
 
 ## Components
 
-${components.map(comp => `- [${comp.name}](./components/${comp.fileName}.md) - ${comp.description.split('.')[0]}`).join('\n')}
+For a complete list of all components with descriptions and examples, see the [Components Overview](./components/README.md).
 
 ## Architecture
 
@@ -219,6 +283,94 @@ This documentation is automatically generated from JSDoc comments. To update:
 \`\`\`bash
 npm run docs:generate
 \`\`\`
+
+---
+
+*Generated automatically on ${new Date().toISOString().split('T')[0]}*
+`;
+
+  return markdown;
+}
+
+/**
+ * Generate the components README index
+ */
+function generateComponentsIndex(components) {
+  const documented = components.filter(comp => !comp.undocumented);
+  const undocumented = components.filter(comp => comp.undocumented);
+  
+  const markdown = `# Components
+
+This directory contains documentation for all BLUI components. Each component is automatically documented from JSDoc comments in the source code.
+
+## Available Components
+
+${components.map(comp => {
+  const shortDescription = comp.description.split('.')[0];
+  const status = comp.undocumented ? ' ⚠️ *Needs Documentation*' : '';
+  return `### [${comp.name}](./${comp.fileName}.md)${status}
+
+${shortDescription}
+
+**Source:** [\`${comp.filePath}\`](..${comp.filePath})  
+**Since:** v${comp.since}
+
+`;
+}).join('')}
+
+## Component Categories
+
+### Layout Components
+${components.filter(comp => ['Box', 'Flex', 'Grid'].includes(comp.name))
+  .map(comp => {
+    const status = comp.undocumented ? ' ⚠️' : '';
+    return `- [${comp.name}](./${comp.fileName}.md)${status} - ${comp.description.split('.')[0]}`;
+  }).join('\n')}
+
+### UI Components  
+${components.filter(comp => ['Button', 'Badge', 'Card', 'Text', 'Input'].includes(comp.name))
+  .map(comp => {
+    const status = comp.undocumented ? ' ⚠️' : '';
+    return `- [${comp.name}](./${comp.fileName}.md)${status} - ${comp.description.split('.')[0]}`;
+  }).join('\n')}
+
+### Navigation Components
+${components.filter(comp => ['Navbar'].includes(comp.name))
+  .map(comp => {
+    const status = comp.undocumented ? ' ⚠️' : '';
+    return `- [${comp.name}](./${comp.fileName}.md)${status} - ${comp.description.split('.')[0]}`;
+  }).join('\n')}
+
+${undocumented.length > 0 ? `## Documentation Status
+
+📚 **Fully Documented:** ${documented.length} components  
+⚠️ **Needs Documentation:** ${undocumented.length} components
+
+Components marked with ⚠️ need JSDoc comments to generate complete documentation.
+
+` : ''}## Usage Patterns
+
+All components follow consistent patterns:
+
+\`\`\`tsx
+import { ComponentName } from 'blui';
+
+function MyComponent() {
+  return (
+    <ComponentName prop="value">
+      Content
+    </ComponentName>
+  );
+}
+\`\`\`
+
+## Contributing
+
+When adding new components:
+1. Add comprehensive JSDoc comments to your component
+2. Include \`@example\` tags with usage examples
+3. Document all props with descriptions
+4. Run \`npm run docs:generate\` to update documentation
 
 ---
 
@@ -361,10 +513,6 @@ const layoutConfig = {
  * Update the root README with component links
  */
 function updateRootReadme(components) {
-  const componentLinks = components
-    .map(comp => `- [${comp.name}](./docs/components/${comp.fileName}.md)`)
-    .join('\n');
-
   const newReadme = `# BLUI - React Component Library
 
 A React-based UI framework with a powerful, extensible theme system that allows developers to customize every aspect of the design while maintaining consistency across components.
@@ -397,7 +545,8 @@ function App() {
 ## 📚 Documentation
 
 ### Components
-${componentLinks}
+- [All Components](./docs/components/README.md) - Complete component library reference
+- [Individual Component Docs](./docs/components/) - Detailed documentation for each component
 
 ### Architecture
 - [Theme System](./docs/themes/README.md)
@@ -470,6 +619,11 @@ function main() {
     writeFileSync(outputPath, markdown);
     console.log(`  ✅ Generated docs for ${component.name}`);
   });
+
+  // Generate components index README
+  const componentsIndex = generateComponentsIndex(components);
+  writeFileSync(join(DOCS_DIR, 'components', 'README.md'), componentsIndex);
+  console.log(`  ✅ Generated components index README`);
 
   // Generate main docs index
   const docsIndex = generateDocsIndex(components);

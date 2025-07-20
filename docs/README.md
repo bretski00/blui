@@ -4,11 +4,7 @@ Welcome to the BLUI component library documentation. This documentation is autom
 
 ## Components
 
-- [Badge](./components/Badge.md) - Props for the Badge component
-- [Button](./components/Button.md) - Props for the Button component
-- [Card](./components/Card.md) - Props for the Card component
-- [Input](./components/Input.md) - Props for the Input component
-- [Text](./components/Text.md) - Props for the Text component
+For a complete list of all components with descriptions and examples, see the [Components Overview](./components/README.md).
 
 ## Architecture
 
