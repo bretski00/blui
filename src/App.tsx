@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, Navbar } from './index';
-import { FrameworkDemoPage, ConsumingAppPage, ThemePlaygroundPage, LayoutDemoPage, ComponentPlaygroundPage } from './pages';
+import { HomePage, DocumentationHomePage, ConsumingAppPage, ThemePlaygroundPage, LayoutDemoPage, ComponentPlaygroundPage } from './pages';
 
 function App() {
   return (
@@ -10,10 +10,10 @@ function App() {
           <Navbar />
           <main>
             <Routes>
-              <Route path="/" element={<FrameworkDemoPage />} />
+              <Route path="/" element={<HomePage />} />
               <Route path="/playground" element={<ThemePlaygroundPage />} />
               <Route path="/components" element={<ComponentPlaygroundPage />} />
-              <Route path="/layouts" element={<LayoutDemoPage />} />
+              {/* <Route path="/layouts" element={<LayoutDemoPage />} /> */}
               <Route path="/consuming-app" element={<ConsumingAppPage />} />
             </Routes>
           </main>
