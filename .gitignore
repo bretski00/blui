@@ -23,3 +23,4 @@ dist-ssr
 *.sln
 *.sw?
 packages/blui-core/blui-*.tgz
+packages/blui-core/coverage/**
