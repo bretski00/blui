@@ -18,6 +18,7 @@ For a complete list of all components with descriptions and examples, see the [C
 - [Theme System](./themes/README.md) - Learn about the theming architecture
 - [Layout System](./layouts/README.md) - Understand the layout provider system
 - [Type Contracts](./contracts/README.md) - Type-safe component configuration
+- [TypeScript Utilities](./types/README.md) - Advanced type utilities and patterns
 
 ## Getting Started
 
@@ -34,22 +35,34 @@ npm install blui
 ### Basic Usage
 
 \`\`\`tsx
-import { ThemeProvider, Button, Card, Text } from 'blui';
+import { ThemeProvider, Button, Card, Text, ButtonVariant, ComponentSize, TextSize, TextWeight } from 'blui';
 
 function App() {
   return (
     <ThemeProvider>
       <Card padding="lg">
-        <Text as="h1" size="2xl" weight="bold">
+        <Text as="h1" size={TextSize.ExtraLarge2} weight={TextWeight.Bold}>
           Welcome to BLUI
         </Text>
-        <Button variant="primary" size="lg">
+        <Button variant={ButtonVariant.Primary} size={ComponentSize.Large}>
           Get Started
         </Button>
       </Card>
     </ThemeProvider>
   );
 }
+\`\`\`
+
+### Type-Safe Configuration
+
+\`\`\`tsx
+// Use type contracts for better IntelliSense and safety
+import { ButtonVariant, ComponentSize, TextSize } from 'blui/contracts';
+
+// Or import from specific modules for better tree-shaking
+import { ButtonVariant } from 'blui/contracts/variants';
+import { ComponentSize } from 'blui/contracts/sizing';
+import { TextSize } from 'blui/contracts/typography';
 \`\`\`
 
 ## Development
