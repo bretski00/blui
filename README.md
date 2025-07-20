@@ -1,6 +1,8 @@
 # BLUI - React Component Library
 
-A React-based UI framework with a powerful, extensible theme system that allows developers to customize every aspect of the design while maintaining consistency across components.
+A React-bas- **TypeScript Support** - Full type safety and IntelliSense
+- **Modular Type System** - Organized contracts and advanced TypeScript utilities
+- **Runtime Updates** - Dynamic theme and layout changesUI framework with a powerful, extensible theme system that allows developers to customize every aspect of the design while maintaining consistency across components.
 
 ## 🚀 Quick Start
 
@@ -9,16 +11,16 @@ npm install blui
 ```
 
 ```tsx
-import { ThemeProvider, Button, Card, Text } from 'blui';
+import { ThemeProvider, Button, Card, Text, ButtonVariant, ComponentSize, TextSize, TextWeight } from 'blui';
 
 function App() {
   return (
     <ThemeProvider>
       <Card padding="lg">
-        <Text as="h1" size="2xl" weight="bold">
+        <Text as="h1" size={TextSize.ExtraLarge2} weight={TextWeight.Bold}>
           Welcome to BLUI
         </Text>
-        <Button variant="primary" size="lg">
+        <Button variant={ButtonVariant.Primary} size={ComponentSize.Large}>
           Get Started
         </Button>
       </Card>
@@ -36,6 +38,8 @@ function App() {
 ### Architecture
 - [Theme System](./docs/themes/README.md)
 - [Layout System](./docs/layouts/README.md)
+- [Type Contracts](./docs/contracts/README.md) - Type-safe component constants and enums
+- [TypeScript Utilities](./docs/types/README.md) - Advanced type utilities and patterns
 - [Complete Documentation](./docs/README.md)
 
 ## ✨ Features
