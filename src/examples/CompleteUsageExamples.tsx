@@ -17,7 +17,7 @@ import {
   Flex,
   FlexItem,
   
-  // Type contracts (C#-like interfaces)
+  // Type contracts
   ButtonVariant,
   ComponentSize,
   ComponentVariant,
