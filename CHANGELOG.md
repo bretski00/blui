@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.2](./changelogs/v1.0.2.md) - 2025-07-20
+
+**Highlights**: 1 new component
+
+### 🆕 New Components
+- **DocumentationNavbar**: Configuration interface for navigation items in the documentation navbar.
+
+*...and 11 more changes*
+
+[View full changelog](./changelogs/v1.0.2.md)
+
+
 ## [1.0.1](./changelogs/v1.0.1.md) - 2025-07-20
 
 **Highlights**: 1 new component, 1 new feature
