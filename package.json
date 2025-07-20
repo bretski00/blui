@@ -9,7 +9,6 @@
   "type": "module",
   "scripts": {
     "dev": "npm run dev -w blui-docs",
-    "dev:lib": "npm run dev -w blui",
     "dev:docs": "npm run dev -w blui-docs",
     "build": "npm run build -w blui && npm run build -w blui-docs",
     "build:lib": "npm run build -w blui",
