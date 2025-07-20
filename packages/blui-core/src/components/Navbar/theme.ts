@@ -1,3 +1,28 @@
+/**
+ * Theme configuration interface for Navbar component.
+ * 
+ * Defines the styling properties available for customizing Navbar appearance,
+ * including container, content layout, brand area, navigation links, and action buttons.
+ * 
+ * @example
+ * ```tsx
+ * const customNavbarTheme: NavbarTheme = {
+ *   container: {
+ *     backgroundColor: '#1f2937',
+ *     height: '72px',
+ *     position: 'fixed',
+ *     zIndex: 1000
+ *   },
+ *   content: {
+ *     maxWidth: '1440px',
+ *     padding: { x: '2rem', y: '0' }
+ *   },
+ *   brand: {
+ *     gap: '1.5rem'
+ *   }
+ * };
+ * ```
+ */
 export interface NavbarTheme {
   container: {
     backgroundColor?: string;
@@ -85,10 +110,14 @@ export const defaultNavbarTheme: NavbarTheme = {
 /**
  * Extends the global ComponentThemes interface to include navbar theme.
  * This enables type-safe theme access and automatic theme registration.
- * 
- * @internal This is handled automatically when the Navbar component is imported.
  */
 declare module '../../theme/core' {
+  /**
+   * Component themes interface augmentation for Navbar.
+   * 
+   * Extends the global ComponentThemes interface to include Navbar-specific
+   * theme configuration, ensuring type safety when accessing navbar themes.
+   */
   interface ComponentThemes {
     /** Navbar component theme configuration */
     navbar: NavbarTheme;

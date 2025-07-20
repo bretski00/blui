@@ -1,47 +1,10 @@
 /**
- * @fileoverview
- * Component library exports.
+ * @file Component library exports
  * 
- * This module exports all available UI components, their prop types, and
- * type contracts for excellent developer experience. Each component automatically 
- * registers its theme with the global theme system when imported, enabling 
- * immediate use without additional configuration.
- * 
- * @example
- * ```tsx
- * // Import components and contracts
- * import { 
- *   Button, 
- *   Input, 
- *   Card,
- *   ButtonVariant,
- *   ComponentSize,
- *   Contracts 
- * } from '@/components';
- * 
- * // Type-safe component usage
- * <Button 
- *   variant={ButtonVariant.Primary} 
- *   size={ComponentSize.Large}
- * >
- *   Submit
- * </Button>
- * 
- * // Or use the consolidated contracts
- * <Card 
- *   variant={Contracts.CardVariant.Elevated}
- *   padding={Contracts.CardPadding.Large}
- * >
- *   Card content
- * </Card>
- * ```
- * 
- * @since 1.0.0
+ * Exports all available UI components and their type contracts.
  */
 
-// =============================================================================
-// COMPONENTS
-// =============================================================================
+// Components
 
 export { Button } from './Button';
 export type { ButtonProps } from './Button';
@@ -63,14 +26,7 @@ export type { BadgeProps } from './Badge';
 
 export { Navbar } from './Navbar';
 
-// =============================================================================
-// TYPE CONTRACTS & CONSTANTS
-// =============================================================================
-
-/**
- * Re-export all type contracts for easy access.
- * These provide type-safe constants for component props.
- */
+// Type contracts and constants
 export {
   // Core variant and size types
   ComponentVariant,

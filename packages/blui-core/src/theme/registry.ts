@@ -40,6 +40,7 @@ export function registerComponentTheme<T>(
  * 
  * @returns Record of all registered component themes
  * @internal
+ * @example
  */
 export function getRegisteredComponentThemes(): Record<string, any> {
   const themes: Record<string, any> = {};

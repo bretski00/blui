@@ -1,5 +1,5 @@
 /**
- * @fileoverview
+ * @file
  * Main theme system entry point.
  * Exports all core theme types, utilities, hooks, and the theme provider.
  * 

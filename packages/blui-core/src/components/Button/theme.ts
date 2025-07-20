@@ -182,9 +182,14 @@ export const defaultButtonTheme: ButtonTheme = {
  * Module augmentation to add ButtonTheme to the global ComponentThemes interface.
  * This enables type-safe access to button theme through the theme system.
  * 
- * @internal This is handled automatically when the Button component is imported.
  */
 declare module '../../theme/core' {
+  /**
+   * Component themes interface augmentation for Button.
+   * 
+   * Extends the global ComponentThemes interface to include Button-specific
+   * theme configuration, ensuring type safety when accessing button themes.
+   */
   interface ComponentThemes {
     /** Button component theme configuration */
     button: ButtonTheme;

@@ -1,9 +1,5 @@
 /**
- * @fileoverview
- * Layout components and theme system exports.
- * 
- * This module exports all layout components, their themes, and the layout
- * provider system. Import this to get access to all layout functionality.
+ * @file Layout components and theme system exports
  */
 
 // Core layout types

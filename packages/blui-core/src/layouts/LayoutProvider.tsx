@@ -1,5 +1,5 @@
 /**
- * @fileoverview
+ * @file
  * Layout provider and context for layout theme management.
  */
 
@@ -7,7 +7,6 @@ import { createContext, useContext, useMemo } from 'react';
 import type { ReactNode } from 'react';
 import type { LayoutTheme, LayoutThemes, LayoutThemeOverride } from './core';
 import { createCompleteLayoutTheme, getLayoutTheme } from './registry';
-import { useTheme } from '../theme/ThemeProvider';
 
 /**
  * Context value interface for the layout system.
@@ -32,6 +31,10 @@ export interface LayoutProviderProps {
 /**
  * Layout provider component that supplies layout theme context.
  * This can be used standalone or will be automatically included in ThemeProvider.
+ * @param root0
+ * @param root0.children
+ * @param root0.layoutTheme
+ * @example
  */
 export function LayoutProvider({ 
   children, 
@@ -55,33 +58,20 @@ export function LayoutProvider({
 /**
  * Hook to access the layout context.
  * Falls back to theme context if no layout context is available.
+ * @example
  */
 export function useLayoutContext(): LayoutContextValue {
   const layoutContext = useContext(LayoutContext);
   
-  // If no layout context, try to get it from theme context
-  if (!layoutContext) {
-    try {
-      const { theme } = useTheme();
-      // Check if theme has layouts property (extended theme)
-      if ('layouts' in theme) {
-        return {
-          layoutTheme: (theme as any).layouts,
-        };
-      }
-      // Fallback to default layout theme
-      return {
-        layoutTheme: createCompleteLayoutTheme(),
-      };
-    } catch {
-      // If no theme context either, create default
-      return {
-        layoutTheme: createCompleteLayoutTheme(),
-      };
-    }
+  // Return early if we have layout context
+  if (layoutContext) {
+    return layoutContext;
   }
   
-  return layoutContext;
+  // Fallback to default layout theme if no layout context
+  return {
+    layoutTheme: createCompleteLayoutTheme(),
+  };
 }
 
 /**
@@ -90,6 +80,7 @@ export function useLayoutContext(): LayoutContextValue {
  * @template T - The layout theme type
  * @param layoutName - The name of the layout whose theme to retrieve
  * @returns The layout's theme configuration
+ * @example
  */
 export function useLayoutTheme<T>(layoutName: keyof LayoutThemes): T {
   const { layoutTheme } = useLayoutContext();

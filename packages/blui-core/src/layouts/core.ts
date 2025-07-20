@@ -1,5 +1,5 @@
 /**
- * @fileoverview
+ * @file
  * Layout theme core types and interfaces.
  * 
  * This module defines the base types for layout themes and provides

@@ -169,10 +169,14 @@ export const defaultBadgeTheme: BadgeTheme = {
 /**
  * Module augmentation to add BadgeTheme to the global ComponentThemes interface.
  * This enables type-safe access to badge theme through the theme system.
- * 
- * @internal This is handled automatically when the Badge component is imported.
  */
 declare module '../../theme/core' {
+  /**
+   * Component themes interface augmentation for Badge.
+   * 
+   * Extends the global ComponentThemes interface to include Badge-specific
+   * theme configuration, ensuring type safety when accessing badge themes.
+   */
   interface ComponentThemes {
     /** Badge component theme configuration */
     badge: BadgeTheme;

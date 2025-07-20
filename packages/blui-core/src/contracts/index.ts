@@ -1,11 +1,5 @@
 /**
- * @fileoverview
- * Type contracts and constants for the UI framework.
- * 
- * This module provides TypeScript contracts that define the available options
- * for all components, ensuring type safety and excellent developer experience.
- * 
- * @since 1.0.0
+ * @file Type contracts and constants for the UI framework
  */
 
 // =============================================================================

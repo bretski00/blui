@@ -1,5 +1,5 @@
 /**
- * @fileoverview
+ * @file
  * Grid layout component with theme integration.
  */
 
@@ -49,6 +49,21 @@ export interface GridProps {
 /**
  * Grid layout component that provides CSS Grid functionality with theme support.
  * 
+ * @param root0
+ * @param root0.children
+ * @param root0.columns
+ * @param root0.gap
+ * @param root0.rows
+ * @param root0.justifyContent
+ * @param root0.alignItems
+ * @param root0.justifyItems
+ * @param root0.alignContent
+ * @param root0.autoFit
+ * @param root0.autoFitMinWidth
+ * @param root0.autoFitMaxWidth
+ * @param root0.style
+ * @param root0.className
+ * @param root0.as
  * @example
  * ```tsx
  * // Basic grid with 3 columns
@@ -181,6 +196,16 @@ export interface GridItemProps {
 /**
  * Grid item component for positioning within a Grid.
  * 
+ * @param root0
+ * @param root0.children
+ * @param root0.column
+ * @param root0.row
+ * @param root0.area
+ * @param root0.justifySelf
+ * @param root0.alignSelf
+ * @param root0.style
+ * @param root0.className
+ * @param root0.as
  * @example
  * ```tsx
  * <Grid columns="3" rows="2">

@@ -233,6 +233,7 @@ export interface CoreTheme {
  * }
  * ```
  */
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface ComponentThemes {
   // This will be extended by each component via module augmentation
 }

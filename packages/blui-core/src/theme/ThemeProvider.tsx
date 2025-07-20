@@ -48,6 +48,11 @@ export interface ThemeProviderProps {
  * This component automatically includes all registered component themes,
  * so you don't need to manually configure themes for each component.
  * 
+ * @param root0
+ * @param root0.children
+ * @param root0.theme
+ * @param root0.enableCSSVariables
+ * @param root0.cssVariablePrefix
  * @example
  * ```tsx
  * // Basic usage
@@ -197,25 +202,91 @@ export function useComponentTheme<T>(componentName: keyof Theme['components']): 
 /**
  * Convenience hooks for accessing common theme sections.
  * These provide quick access to frequently used theme values.
+/**
+ * Hook to get the colors section of the theme.
+ * 
+ * @returns The colors section of the current theme
+ * @example
+/**
+ * Hook to get the colors section of the theme.
+ * 
+ * @returns The colors section of the current theme
+ * @example
+ * ```tsx
+ * const colors = useColors();
+ * console.log(colors.primary);
+ * ```
  */
-
-/** Hook to get the colors section of the theme */
 export const useColors = () => useThemeValue(theme => theme.colors);
 
-/** Hook to get the typography section of the theme */
+/**
+ * Hook to get the typography section of the theme.
+ * 
+ * @returns The typography section of the current theme
+ * @example
+ * ```tsx
+ * const typography = useTypography();
+ * console.log(typography.fontFamily);
+ * ```
+ */
 export const useTypography = () => useThemeValue(theme => theme.typography);
 
-/** Hook to get the spacing section of the theme */
+/**
+ * Hook to get the spacing section of the theme.
+ * 
+ * @returns The spacing section of the current theme
+ * @example
+ * ```tsx
+ * const spacing = useSpacing();
+ * console.log(spacing.md);
+ * ```
+ */
 export const useSpacing = () => useThemeValue(theme => theme.spacing);
 
-/** Hook to get the border radius section of the theme */
+/**
+ * Hook to get the border radius section of the theme.
+ * 
+ * @returns The border radius section of the current theme
+ * @example
+ * ```tsx
+ * const borderRadius = useBorderRadius();
+ * console.log(borderRadius.md);
+ * ```
+ */
 export const useBorderRadius = () => useThemeValue(theme => theme.borderRadius);
 
-/** Hook to get the shadows section of the theme */
+/**
+ * Hook to get the shadows section of the theme.
+ * 
+ * @returns The shadows section of the current theme
+ * @example
+ * ```tsx
+ * const shadows = useShadows();
+ * console.log(shadows.md);
+ * ```
+ */
 export const useShadows = () => useThemeValue(theme => theme.shadows);
 
-/** Hook to get the breakpoints section of the theme */
+/**
+ * Hook to get the breakpoints section of the theme.
+ * 
+ * @returns The breakpoints section of the current theme
+ * @example
+ * ```tsx
+ * const breakpoints = useBreakpoints();
+ * console.log(breakpoints.md);
+ * ```
+ */
 export const useBreakpoints = () => useThemeValue(theme => theme.breakpoints);
 
-/** Hook to get the z-index section of the theme */
+/**
+ * Hook to get the z-index section of the theme.
+ * 
+ * @returns The z-index section of the current theme
+ * @example
+ * ```tsx
+ * const zIndex = useZIndex();
+ * console.log(zIndex.modal);
+ * ```
+ */
 export const useZIndex = () => useThemeValue(theme => theme.zIndex);

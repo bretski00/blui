@@ -1,5 +1,5 @@
 /**
- * @fileoverview
+ * @file
  * Default layout themes.
  * 
  * This module provides the default theme configurations for all layout components.

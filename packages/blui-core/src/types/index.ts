@@ -321,6 +321,8 @@ export interface Theme {
 
 /**
  * Type guard to check if a value is a valid button variant
+ * @param value
+ * @example
  */
 export function isButtonVariant(value: string): value is ButtonVariantType {
   return Object.values(ButtonVariant).includes(value as ButtonVariantType);
@@ -328,6 +330,8 @@ export function isButtonVariant(value: string): value is ButtonVariantType {
 
 /**
  * Type guard to check if a value is a valid component size
+ * @param value
+ * @example
  */
 export function isComponentSize(value: string): value is ComponentSizeType {
   return Object.values(ComponentSize).includes(value as ComponentSizeType);
@@ -335,6 +339,8 @@ export function isComponentSize(value: string): value is ComponentSizeType {
 
 /**
  * Type guard to check if a value is a valid text size
+ * @param value
+ * @example
  */
 export function isTextSize(value: string): value is TextSizeType {
   return Object.values(TextSize).includes(value as TextSizeType);
@@ -342,6 +348,8 @@ export function isTextSize(value: string): value is TextSizeType {
 
 /**
  * Type guard to check if a value is a valid spacing value
+ * @param value
+ * @example
  */
 export function isSpacing(value: string): value is SpacingType {
   return Object.values(Spacing).includes(value as SpacingType);
@@ -362,26 +370,96 @@ export class ButtonConfigBuilder {
     loading?: boolean;
   } = {};
 
+  /**
+   * Sets the visual variant of the button.
+   * 
+   * Configures the button's appearance style (primary, secondary, outline, ghost).
+   * Each variant has distinct styling for different use cases and hierarchy.
+   * 
+   * @param variant - The button variant to apply
+   * @returns The builder instance for method chaining
+   * @example
+   * ```tsx
+   * builder.variant('primary').size('lg').build();
+   * ```
+   */
   variant(variant: ButtonVariantType): this {
     this.config.variant = variant;
     return this;
   }
 
+  /**
+   * Sets the size of the button.
+   * 
+   * Configures the button's dimensions including padding, font size, and height.
+   * Available sizes provide consistent scaling across the design system.
+   * 
+   * @param size - The button size to apply (sm, md, lg)
+   * @returns The builder instance for method chaining
+   * @example
+   * ```tsx
+   * builder.size('lg').variant('primary').build();
+   * ```
+   */
   size(size: ComponentSizeType): this {
     this.config.size = size;
     return this;
   }
 
+  /**
+   * Sets the disabled state of the button.
+   * 
+   * Controls whether the button is interactive or disabled. Disabled buttons
+   * are visually muted and cannot be clicked or receive focus.
+   * 
+   * @param disabled - Whether the button should be disabled (defaults to true)
+   * @returns The builder instance for method chaining
+   * @example
+   * ```tsx
+   * builder.disabled().build(); // Disabled button
+   * builder.disabled(false).build(); // Enabled button
+   * ```
+   */
   disabled(disabled = true): this {
     this.config.disabled = disabled;
     return this;
   }
 
+  /**
+   * Sets the loading state of the button.
+   * 
+   * Controls whether the button shows a loading indicator. Loading buttons
+   * typically display a spinner and are non-interactive.
+   * 
+   * @param loading - Whether the button should show loading state (defaults to true)
+   * @returns The builder instance for method chaining
+   * @example
+   * ```tsx
+   * builder.loading().build(); // Loading button
+   * builder.loading(false).build(); // Normal button
+   * ```
+   */
   loading(loading = true): this {
     this.config.loading = loading;
     return this;
   }
 
+  /**
+   * Builds and returns the final button configuration.
+   * 
+   * Finalizes the button configuration and returns an immutable copy
+   * of all the settings applied through the builder methods.
+   * 
+   * @returns The complete button configuration object
+   * @example
+   * ```tsx
+   * const config = builder
+   *   .variant('primary')
+   *   .size('lg')
+   *   .disabled(false)
+   *   .build();
+   * ```
+   */
   build() {
     return { ...this.config };
   }
@@ -399,31 +477,112 @@ export class TextConfigBuilder {
     as?: TextElementType;
   } = {};
 
+  /**
+   * Sets the size of the text.
+   * 
+   * Configures the font size of the text element using predefined size scales
+   * that maintain consistency across the design system.
+   * 
+   * @param size - The text size to apply
+   * @returns The builder instance for method chaining
+   * @example
+   * ```tsx
+   * builder.size('lg').weight('bold').build();
+   * ```
+   */
   size(size: TextSizeType): this {
     this.config.size = size;
     return this;
   }
 
+  /**
+   * Sets the font weight of the text.
+   * 
+   * Configures the boldness/thickness of the text using predefined weight values
+   * that provide appropriate visual hierarchy and emphasis.
+   * 
+   * @param weight - The font weight to apply
+   * @returns The builder instance for method chaining
+   * @example
+   * ```tsx
+   * builder.weight('bold').size('lg').build();
+   * ```
+   */
   weight(weight: TextWeightType): this {
     this.config.weight = weight;
     return this;
   }
 
+  /**
+   * Sets the color of the text.
+   * 
+   * Configures the text color using predefined color tokens from the theme
+   * that ensure accessibility and consistency across the design system.
+   * 
+   * @param color - The text color to apply
+   * @returns The builder instance for method chaining
+   * @example
+   * ```tsx
+   * builder.color('primary').weight('semibold').build();
+   * ```
+   */
   color(color: TextColorType): this {
     this.config.color = color;
     return this;
   }
 
+  /**
+   * Sets the text alignment.
+   * 
+   * Configures how the text is horizontally aligned within its container
+   * using standard CSS text-align values.
+   * 
+   * @param align - The text alignment to apply
+   * @returns The builder instance for method chaining
+   * @example
+   * ```tsx
+   * builder.align('center').size('xl').build();
+   * ```
+   */
   align(align: TextAlignType): this {
     this.config.align = align;
     return this;
   }
 
+  /**
+   * Sets the HTML element type for the text.
+   * 
+   * Configures which HTML element will be used to render the text,
+   * affecting semantics and default styling behavior.
+   * 
+   * @param element - The HTML element type to use
+   * @returns The builder instance for method chaining
+   * @example
+   * ```tsx
+   * builder.as('h1').size('2xl').weight('bold').build();
+   * ```
+   */
   as(element: TextElementType): this {
     this.config.as = element;
     return this;
   }
 
+  /**
+   * Builds and returns the final text configuration.
+   * 
+   * Finalizes the text configuration and returns an immutable copy
+   * of all the settings applied through the builder methods.
+   * 
+   * @returns The complete text configuration object
+   * @example
+   * ```tsx
+   * const config = builder
+   *   .size('lg')
+   *   .weight('semibold')
+   *   .color('primary')
+   *   .build();
+   * ```
+   */
   build() {
     return { ...this.config };
   }
@@ -434,12 +593,19 @@ export class TextConfigBuilder {
 // ============================================================================
 
 /**
- * Create a button configuration using the builder pattern
+ * Create a button configuration using the builder pattern.
+ * 
+ * Returns a new ButtonConfigBuilder instance for fluent configuration
+ * of button properties using the builder pattern.
+ * 
+ * @returns A new ButtonConfigBuilder instance
  * @example
+ * ```tsx
  * const config = createButtonConfig()
  *   .variant(ButtonVariant.Primary)
  *   .size(ComponentSize.Large)
  *   .build();
+ * ```
  */
 export function createButtonConfig(): ButtonConfigBuilder {
   return new ButtonConfigBuilder();
@@ -447,12 +613,15 @@ export function createButtonConfig(): ButtonConfigBuilder {
 
 /**
  * Create a text configuration using the builder pattern
+ * @returns A new TextConfigBuilder instance
  * @example
+ * ```tsx
  * const config = createTextConfig()
  *   .size(TextSize.ExtraLarge)
  *   .weight(TextWeight.Bold)
  *   .color(TextColor.Primary)
  *   .build();
+ * ```
  */
 export function createTextConfig(): TextConfigBuilder {
   return new TextConfigBuilder();

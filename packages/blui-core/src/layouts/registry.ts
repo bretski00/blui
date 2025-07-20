@@ -1,5 +1,5 @@
 /**
- * @fileoverview
+ * @file
  * Layout theme registry system.
  * 
  * This module provides the registration and retrieval system for layout themes,
@@ -21,6 +21,7 @@ const layoutThemeRegistry = new Map<keyof LayoutThemes, any>();
  * 
  * @param layoutName - The name of the layout
  * @param theme - The layout's theme configuration
+ * @example
  */
 export function registerLayoutTheme<K extends keyof LayoutThemes>(
   layoutName: K,
@@ -36,6 +37,7 @@ export function registerLayoutTheme<K extends keyof LayoutThemes>(
  * @param layoutName - The name of the layout whose theme to retrieve
  * @returns The layout's theme configuration
  * @throws Error if the layout theme is not found
+ * @example
  */
 export function getLayoutTheme<T>(
   layoutTheme: LayoutTheme,
@@ -56,6 +58,7 @@ export function getLayoutTheme<T>(
  * 
  * @param overrides - Optional layout theme overrides
  * @returns Complete layout theme with all registered layouts
+ * @example
  */
 export function createCompleteLayoutTheme(overrides: LayoutThemeOverride = {}): LayoutTheme {
   const completeTheme: Partial<LayoutTheme> = {};
@@ -76,6 +79,7 @@ export function createCompleteLayoutTheme(overrides: LayoutThemeOverride = {}): 
 /**
  * Gets all registered layout names.
  * Useful for debugging and development tools.
+ * @example
  */
 export function getRegisteredLayoutNames(): string[] {
   return Array.from(layoutThemeRegistry.keys()).map(String);
@@ -86,6 +90,7 @@ export function getRegisteredLayoutNames(): string[] {
  * This is used by the theme system to build the complete theme.
  * 
  * @returns Object containing all registered layout themes
+ * @example
  */
 export function getRegisteredLayoutThemes(): LayoutThemes {
   const layouts = {} as LayoutThemes;
@@ -100,6 +105,7 @@ export function getRegisteredLayoutThemes(): LayoutThemes {
  * 
  * @param layoutName - The name of the layout to check
  * @returns True if the layout is registered
+ * @example
  */
 export function isLayoutThemeRegistered(layoutName: keyof LayoutThemes): boolean {
   return layoutThemeRegistry.has(layoutName);

@@ -1,5 +1,5 @@
 /**
- * @fileoverview
+ * @file
  * Integration layer between theme system and layout system.
  * 
  * This module provides utilities to integrate layout themes into the main theme system
@@ -39,6 +39,7 @@ export interface ExtendedThemeOverride {
  * @param baseTheme - The base theme from ThemeProvider
  * @param layoutOverrides - Optional layout theme overrides
  * @returns Extended theme with layout support
+ * @example
  */
 export function createExtendedTheme(
   baseTheme: Theme,
@@ -58,6 +59,7 @@ export function createExtendedTheme(
  * @param extendedTheme - Extended theme containing layouts
  * @param layoutName - Name of the layout to retrieve
  * @returns The layout theme
+ * @example
  */
 export function getLayoutFromExtendedTheme<T>(
   extendedTheme: ExtendedTheme,

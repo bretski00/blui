@@ -2,6 +2,20 @@ import { forwardRef } from 'react';
 import type { HTMLAttributes, CSSProperties } from 'react';
 import { useSpacing, useBorderRadius, useShadows } from '../theme';
 
+/**
+ * Props for the Box component.
+ * 
+ * Extends standard HTML div attributes with theme-aware spacing, shadows,
+ * and border radius utilities. Box is a fundamental layout primitive that
+ * provides consistent spacing and styling options.
+ * 
+ * @example
+ * ```tsx
+ * <Box p="md" m="lg" shadow="md" borderRadius="lg">
+ *   Content goes here
+ * </Box>
+ * ```
+ */
 export interface BoxProps extends HTMLAttributes<HTMLDivElement> {
   as?: string;
   p?: keyof ReturnType<typeof useSpacing> | string | number;

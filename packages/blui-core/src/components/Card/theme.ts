@@ -1,4 +1,24 @@
-// Card component theme definition
+/**
+ * Theme configuration interface for Card component.
+ * 
+ * Defines the styling properties available for customizing Card appearance,
+ * including background, borders, shadows, and padding options.
+ * 
+ * @example
+ * ```tsx
+ * const customCardTheme: CardTheme = {
+ *   background: '#f8fafc',
+ *   border: '#e2e8f0',
+ *   borderRadius: '0.75rem',
+ *   shadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+ *   padding: {
+ *     sm: '0.75rem',
+ *     md: '1rem',
+ *     lg: '1.5rem',
+ *   }
+ * };
+ * ```
+ */
 export interface CardTheme {
   background: string;
   border: string;
@@ -26,6 +46,12 @@ export const defaultCardTheme: CardTheme = {
 
 // Extend the ComponentThemes interface
 declare module '../../theme/core' {
+  /**
+   * Component themes interface augmentation for Card.
+   * 
+   * Extends the global ComponentThemes interface to include Card-specific
+   * theme configuration, ensuring type safety when accessing card themes.
+   */
   interface ComponentThemes {
     card: CardTheme;
   }

@@ -1,5 +1,5 @@
 /**
- * @fileoverview
+ * @file
  * Flex layout component with theme integration.
  */
 
@@ -43,6 +43,18 @@ export interface FlexProps {
 /**
  * Flex layout component that provides CSS Flexbox functionality with theme support.
  * 
+ * @param root0
+ * @param root0.children
+ * @param root0.direction
+ * @param root0.wrap
+ * @param root0.gap
+ * @param root0.justify
+ * @param root0.align
+ * @param root0.alignContent
+ * @param root0.flex
+ * @param root0.style
+ * @param root0.className
+ * @param root0.as
  * @example
  * ```tsx
  * // Basic row layout
@@ -196,6 +208,17 @@ export interface FlexItemProps {
 /**
  * Flex item component for controlling individual flex items.
  * 
+ * @param root0
+ * @param root0.children
+ * @param root0.grow
+ * @param root0.shrink
+ * @param root0.basis
+ * @param root0.flex
+ * @param root0.alignSelf
+ * @param root0.order
+ * @param root0.style
+ * @param root0.className
+ * @param root0.as
  * @example
  * ```tsx
  * <Flex>
