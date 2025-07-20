@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](./changelogs/v1.0.3.md) - 2025-07-20
+
+*...and 19 more changes*
+
+[View full changelog](./changelogs/v1.0.3.md)
+
+
 ## [1.0.2](./changelogs/v1.0.2.md) - 2025-07-20
 
 **Highlights**: 1 new component
