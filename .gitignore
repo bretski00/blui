@@ -22,5 +22,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-packages/blui-core/blui-*.tgz
+packages/blui-core/*.tgz
 packages/blui-core/coverage/**

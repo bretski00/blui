@@ -8,56 +8,49 @@ This directory contains documentation for all BLUI components. Each component is
 
 Props for the Badge component
 
-**Source:** [`/src/components/Badge.tsx`](../src/components/Badge.tsx)  
+**Source:** [`./packages/blui-core/src/components/Badge.tsx`](../../packages/blui-core/src/components/Badge.tsx)  
 **Since:** v1.0.0
 
-### [Box](./Box.md) ⚠️ *Needs Documentation*
+### [Box](./Box.md)
 
-Box component (documentation pending)
+Props for the Box component
 
-**Source:** [`/src/components/Box.tsx`](../src/components/Box.tsx)  
+**Source:** [`./packages/blui-core/src/components/Box.tsx`](../../packages/blui-core/src/components/Box.tsx)  
 **Since:** v1.0.0
 
 ### [Button](./Button.md)
 
 Props for the Button component
 
-**Source:** [`/src/components/Button.tsx`](../src/components/Button.tsx)  
+**Source:** [`./packages/blui-core/src/components/Button.tsx`](../../packages/blui-core/src/components/Button.tsx)  
 **Since:** v1.0.0
 
 ### [Card](./Card.md)
 
 Props for the Card component
 
-**Source:** [`/src/components/Card.tsx`](../src/components/Card.tsx)  
-**Since:** v1.0.0
-
-### [DocumentationNavbar](./DocumentationNavbar.md) ⚠️ *Needs Documentation*
-
-DocumentationNavbar component (documentation pending)
-
-**Source:** [`/src/components/DocumentationNavbar.tsx`](../src/components/DocumentationNavbar.tsx)  
+**Source:** [`./packages/blui-core/src/components/Card.tsx`](../../packages/blui-core/src/components/Card.tsx)  
 **Since:** v1.0.0
 
 ### [Input](./Input.md)
 
 Props for the Input component
 
-**Source:** [`/src/components/Input.tsx`](../src/components/Input.tsx)  
+**Source:** [`./packages/blui-core/src/components/Input.tsx`](../../packages/blui-core/src/components/Input.tsx)  
 **Since:** v1.0.0
 
 ### [Navbar](./Navbar.md)
 
 Props for the Navbar component
 
-**Source:** [`/src/components/Navbar.tsx`](../src/components/Navbar.tsx)  
+**Source:** [`./packages/blui-core/src/components/Navbar.tsx`](../../packages/blui-core/src/components/Navbar.tsx)  
 **Since:** v1.0.0
 
 ### [Text](./Text.md)
 
 Props for the Text component
 
-**Source:** [`/src/components/Text.tsx`](../src/components/Text.tsx)  
+**Source:** [`./packages/blui-core/src/components/Text.tsx`](../../packages/blui-core/src/components/Text.tsx)  
 **Since:** v1.0.0
 
 
@@ -65,7 +58,7 @@ Props for the Text component
 ## Component Categories
 
 ### Layout Components
-- [Box](./Box.md) ⚠️ - Box component (documentation pending)
+- [Box](./Box.md) - Props for the Box component
 
 ### UI Components  
 - [Badge](./Badge.md) - Props for the Badge component
@@ -76,13 +69,6 @@ Props for the Text component
 
 ### Navigation Components
 - [Navbar](./Navbar.md) - Props for the Navbar component
-
-## Documentation Status
-
-📚 **Fully Documented:** 6 components  
-⚠️ **Needs Documentation:** 2 components
-
-Components marked with ⚠️ need JSDoc comments to generate complete documentation.
 
 ## Usage Patterns
 

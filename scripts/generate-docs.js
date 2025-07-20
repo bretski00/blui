@@ -19,7 +19,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const ROOT_DIR = join(__dirname, '..');
-const SRC_DIR = join(ROOT_DIR, 'src');
+const BLUI_CORE_DIR = join(ROOT_DIR, 'packages', 'blui-core');
+const SRC_DIR = join(BLUI_CORE_DIR, 'src');
 const DOCS_DIR = join(ROOT_DIR, 'docs');
 const COMPONENTS_DIR = join(SRC_DIR, 'components');
 
@@ -70,7 +71,7 @@ function extractComponentInfo(filePath) {
         since: '1.0.0',
         examples: [],
         props: [],
-        filePath: filePath.replace(ROOT_DIR, '').replace(/\\/g, '/'),
+        filePath: filePath.replace(BLUI_CORE_DIR, './packages/blui-core').replace(/\\/g, '/'),
         undocumented: true
       };
     }
@@ -129,7 +130,7 @@ function extractComponentInfo(filePath) {
     since,
     examples,
     props: propsInfo,
-    filePath: filePath.replace(ROOT_DIR, '').replace(/\\/g, '/'),
+    filePath: filePath.replace(BLUI_CORE_DIR, './packages/blui-core').replace(/\\/g, '/'),
     undocumented: false
   };
 }
@@ -173,7 +174,7 @@ This component needs documentation! To help:
 
 ## Source
 
-[\`${filePath}\`](..${filePath})
+[\`${filePath}\`](../../${filePath.replace('./packages/blui-core/', 'packages/blui-core/')})
 
 ---
 
@@ -242,7 +243,7 @@ ${example}
   // Add footer
   markdown += `## Source
 
-[\`${filePath}\`](..${filePath})
+[\`${filePath}\`](../../${filePath.replace('./packages/blui-core/', 'packages/blui-core/')})
 
 ---
 
@@ -312,7 +313,7 @@ ${components.map(comp => {
 
 ${shortDescription}
 
-**Source:** [\`${comp.filePath}\`](..${comp.filePath})  
+**Source:** [\`${comp.filePath}\`](../../${comp.filePath.replace('./packages/blui-core/', 'packages/blui-core/')})  
 **Since:** v${comp.since}
 
 `;

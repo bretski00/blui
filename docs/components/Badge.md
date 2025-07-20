@@ -35,7 +35,7 @@ import { Badge, ComponentVariant, ComponentSize } from '
 
 ## Source
 
-[`/src/components/Badge.tsx`](../src/components/Badge.tsx)
+[`./packages/blui-core/src/components/Badge.tsx`](../../packages/blui-core/src/components/Badge.tsx)
 
 ---
 

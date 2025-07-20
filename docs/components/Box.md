@@ -1,8 +1,6 @@
 # Box
 
-Box component (documentation pending)
-
-> ⚠️ **This component is not yet fully documented.** JSDoc comments are needed to generate complete documentation.
+Props for the Box component. Extends standard HTML div attributes with theme-aware spacing, shadows, and border radius utilities. Box is a fundamental layout primitive that provides consistent spacing and styling options.
 
 ## Installation
 
@@ -18,19 +16,20 @@ import { Box } from 'blui';
 </Box>
 ```
 
-## Contributing
+## Examples
 
-This component needs documentation! To help:
+### Example 1
 
-1. Add JSDoc comments to the component interface
-2. Include `@example` tags with usage examples  
-3. Document all props with descriptions
-4. Run `npm run docs:generate` to update documentation
+```tsx
+<Box p="md" m="lg" shadow="md" borderRadius="lg">
+  Content goes here
+</Box>
+```
 
 ## Source
 
-[`/src/components/Box.tsx`](../src/components/Box.tsx)
+[`./packages/blui-core/src/components/Box.tsx`](../../packages/blui-core/src/components/Box.tsx)
 
 ---
 
-*Component detected but not documented. Please add JSDoc comments.*
+*Generated automatically from JSDoc comments. Last updated: 2025-07-20*

@@ -29,7 +29,7 @@ import { Navbar } from 'blui';
 
 ## Source
 
-[`/src/components/Navbar.tsx`](../src/components/Navbar.tsx)
+[`./packages/blui-core/src/components/Navbar.tsx`](../../packages/blui-core/src/components/Navbar.tsx)
 
 ---
 

@@ -38,7 +38,7 @@ import { Input, ComponentSize } from '
 
 ## Source
 
-[`/src/components/Input.tsx`](../src/components/Input.tsx)
+[`./packages/blui-core/src/components/Input.tsx`](../../packages/blui-core/src/components/Input.tsx)
 
 ---
 

@@ -40,7 +40,7 @@ import { Text, TextSize, TextWeight, TextColor } from '
 
 ## Source
 
-[`/src/components/Text.tsx`](../src/components/Text.tsx)
+[`./packages/blui-core/src/components/Text.tsx`](../../packages/blui-core/src/components/Text.tsx)
 
 ---
 

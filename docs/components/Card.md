@@ -35,7 +35,7 @@ import { Card, CardVariant, CardPadding } from '
 
 ## Source
 
-[`/src/components/Card.tsx`](../src/components/Card.tsx)
+[`./packages/blui-core/src/components/Card.tsx`](../../packages/blui-core/src/components/Card.tsx)
 
 ---
 

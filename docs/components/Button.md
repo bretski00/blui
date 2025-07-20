@@ -37,7 +37,7 @@ import { Button, ButtonVariant, ComponentSize } from '
 
 ## Source
 
-[`/src/components/Button.tsx`](../src/components/Button.tsx)
+[`./packages/blui-core/src/components/Button.tsx`](../../packages/blui-core/src/components/Button.tsx)
 
 ---
 
