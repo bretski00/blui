@@ -33,47 +33,47 @@ npm run docs:watch
 
 Follow this comprehensive checklist when contributing a new component:
 
-### 1. Component Implementation ✅
+### 1. Component Implementation
 - [ ] Create component file: `packages/blui-core/src/components/YourComponent.tsx`
 - [ ] Implement with proper TypeScript interfaces
 - [ ] Use theme integration via `useTheme()` and `getComponentTheme()`
 - [ ] Export from `packages/blui-core/src/components/index.ts`
 - [ ] Follow existing component patterns and naming conventions
 
-### 2. Theme Integration 🎨
+### 2. Theme Integration
 - [ ] Create theme file: `packages/blui-core/src/components/YourComponent/theme.ts`
 - [ ] Define component theme interface with proper TypeScript types
 - [ ] Export default theme configuration
 - [ ] Register theme in component file: `registerComponentTheme('yourComponent', defaultTheme)`
 - [ ] Ensure theme follows existing color and sizing patterns
 
-### 3. Type Contracts 📝
+### 3. Type Contracts
 - [ ] Add component-specific enums to `packages/blui-core/src/contracts/index.ts`
 - [ ] Use existing contracts where applicable (`ComponentSize`, `ComponentVariant`, etc.)
 - [ ] Ensure type safety throughout the component
 - [ ] Add type exports to the main index file
 
-### 4. Documentation (JSDoc) 📚
+### 4. Documentation (JSDoc)
 - [ ] Add comprehensive JSDoc comments to component interface
 - [ ] Include `@example` blocks with practical, realistic usage
 - [ ] Document all props with descriptions, types, and default values
 - [ ] Add `@since` version information
 - [ ] Use proper markdown formatting in descriptions
 
-### 5. Testing 🧪
+### 5. Testing
 - [ ] Create test file: `packages/blui-core/src/components/YourComponent.test.tsx`
 - [ ] Test all variants and sizes
 - [ ] Test theme integration and customization
 - [ ] Test accessibility features (ARIA attributes, keyboard navigation)
 - [ ] Test error states and edge cases
 
-### 6. Examples & Integration 🎯
+### 6. Examples & Integration
 - [ ] Add usage example to `src/examples/CompleteUsageExamples.tsx`
 - [ ] Demonstrate different variants and configurations
 - [ ] Show integration with other BLUI components
 - [ ] Include real-world usage scenarios
 
-### 7. Build & Validation 🔧
+### 7. Build & Validation
 ```bash
 # Generate documentation (creates component docs automatically)
 npm run docs:generate
@@ -101,7 +101,7 @@ npm run version patch
 # - Updates all documentation
 ```
 
-## 📋 Component Template
+## Component Template
 
 Use this template as a starting point for new components:
 
@@ -330,7 +330,7 @@ export const defaultYourComponentTheme: YourComponentTheme = {
 };
 ```
 
-## 📝 Documentation Standards
+## Documentation Standards
 
 ### JSDoc Best Practices
 
@@ -376,7 +376,7 @@ feat!: redesign theme API structure
 BREAKING CHANGE: theme.colors.primary is now theme.palette.primary
 ```
 
-## 🧪 Testing Guidelines
+## Testing Guidelines
 
 ### Component Testing
 - Test all variants and sizes
@@ -412,7 +412,7 @@ describe('YourComponent', () => {
 });
 ```
 
-## 🔄 Automated Systems
+## Automated Systems
 
 BLUI includes several automated systems to help maintain quality:
 
@@ -431,7 +431,7 @@ BLUI includes several automated systems to help maintain quality:
 - Documentation updates on code changes
 - NPM publishing automation
 
-## 🎯 Code Quality
+## Code Quality
 
 ### TypeScript Standards
 - Use strict TypeScript configuration
@@ -451,7 +451,7 @@ BLUI includes several automated systems to help maintain quality:
 - Ensure adequate color contrast
 - Test with screen readers
 
-## 🤝 Review Process
+## Review Process
 
 1. **Create Feature Branch**: `git checkout -b feat/your-component`
 2. **Implement Component**: Follow the checklist above
@@ -461,14 +461,14 @@ BLUI includes several automated systems to help maintain quality:
 6. **Address Review Feedback**: Make requested changes
 7. **Merge & Release**: Maintainers will handle versioning
 
-## 📞 Getting Help
+## Getting Help
 
 - **Documentation**: Check the [docs/](./docs/) directory
 - **Examples**: See [src/examples/](./src/examples/)
 - **Issues**: Create a GitHub issue
 - **Discussions**: Use GitHub Discussions for questions
 
-## 📄 License
+## License
 
 By contributing to BLUI, you agree that your contributions will be licensed under the MIT License.
 

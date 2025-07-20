@@ -1,4 +1,4 @@
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useState, useId } from 'react';
 import type { InputHTMLAttributes } from 'react';
 import { registerComponentTheme, getComponentTheme } from '../theme/registry';
 import { useTheme } from '../theme';
@@ -178,6 +178,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
     const [isFocused, setIsFocused] = useState(false);
     const { theme } = useTheme();
     const inputTheme = getComponentTheme<InputTheme>(theme, 'input');
+    const inputId = useId();
 
     const sizeStyles = inputTheme.sizes[size];
     const colors = inputTheme.colors;
@@ -258,11 +259,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
     return (
       <div style={containerStyles} className={className}>
-        {label && <label style={labelStyles}>{label}</label>}
+        {label && <label htmlFor={inputId} style={labelStyles}>{label}</label>}
         <div style={inputWrapperStyles}>
           {leftIcon && <span style={leftIconStyles}>{leftIcon}</span>}
           <input
             ref={ref}
+            id={inputId}
             style={inputStyles}
             onFocus={handleFocus}
             onBlur={handleBlur}
