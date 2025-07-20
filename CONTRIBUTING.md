@@ -12,15 +12,17 @@ Thank you for your interest in contributing to BLUI! This guide will help you ge
 
 ## 🚀 Development Setup
 
+BLUI is structured as a monorepo with the main library in `packages/blui-core/` and documentation app in `packages/blui-docs/`.
+
 ```bash
 # Clone the repository
 git clone https://github.com/bretski00/blui.git
 cd blui
 
-# Install dependencies
-npm install
+# Install all dependencies for the monorepo
+npm run install:all
 
-# Start development environment
+# Start development environment (runs documentation app)
 npm run dev
 
 # Watch documentation changes
@@ -32,21 +34,21 @@ npm run docs:watch
 Follow this comprehensive checklist when contributing a new component:
 
 ### 1. Component Implementation ✅
-- [ ] Create component file: `src/components/YourComponent.tsx`
+- [ ] Create component file: `packages/blui-core/src/components/YourComponent.tsx`
 - [ ] Implement with proper TypeScript interfaces
 - [ ] Use theme integration via `useTheme()` and `getComponentTheme()`
-- [ ] Export from `src/components/index.ts`
+- [ ] Export from `packages/blui-core/src/components/index.ts`
 - [ ] Follow existing component patterns and naming conventions
 
 ### 2. Theme Integration 🎨
-- [ ] Create theme file: `src/components/YourComponent/theme.ts`
+- [ ] Create theme file: `packages/blui-core/src/components/YourComponent/theme.ts`
 - [ ] Define component theme interface with proper TypeScript types
 - [ ] Export default theme configuration
 - [ ] Register theme in component file: `registerComponentTheme('yourComponent', defaultTheme)`
 - [ ] Ensure theme follows existing color and sizing patterns
 
 ### 3. Type Contracts 📝
-- [ ] Add component-specific enums to `src/contracts/index.ts`
+- [ ] Add component-specific enums to `packages/blui-core/src/contracts/index.ts`
 - [ ] Use existing contracts where applicable (`ComponentSize`, `ComponentVariant`, etc.)
 - [ ] Ensure type safety throughout the component
 - [ ] Add type exports to the main index file
@@ -59,7 +61,7 @@ Follow this comprehensive checklist when contributing a new component:
 - [ ] Use proper markdown formatting in descriptions
 
 ### 5. Testing 🧪
-- [ ] Create test file: `src/components/YourComponent.test.tsx`
+- [ ] Create test file: `packages/blui-core/src/components/YourComponent.test.tsx`
 - [ ] Test all variants and sizes
 - [ ] Test theme integration and customization
 - [ ] Test accessibility features (ARIA attributes, keyboard navigation)
@@ -248,7 +250,7 @@ YourComponent.displayName = 'YourComponent';
 Create a theme file for your component:
 
 ```tsx
-// src/components/YourComponent/theme.ts
+// packages/blui-core/src/components/YourComponent/theme.ts
 
 export interface YourComponentTheme {
   /** Border radius for the component */
