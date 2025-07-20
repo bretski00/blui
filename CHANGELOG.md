@@ -1,5 +1,33 @@
 # Changelog
 
+## [1.0.1](./changelogs/v1.0.1.md) - 2025-07-20
+
+**Highlights**: 7 new components
+
+### 🆕 New Components
+- **Badge**: Props for the Badge component.
+- **Box**: New Box component
+- **Button**: Props for the Button component.
+
+*...and 12 more changes*
+
+[View full changelog](./changelogs/v1.0.1.md)
+
+
+## [1.0.0](./changelogs/v1.0.0.md) - 2025-07-20
+
+**Highlights**: 7 new components
+
+### 🆕 New Components
+- **Badge**: Props for the Badge component.
+- **Box**: Padding
+- **Button**: Props for the Button component.
+
+*...and 18 more changes*
+
+[View full changelog](./changelogs/v1.0.0.md)
+
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),

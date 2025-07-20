@@ -8,6 +8,8 @@ import { ButtonVariant, ComponentSize } from '../contracts';
 // Register the button theme when the module loads
 registerComponentTheme('button', defaultButtonTheme);
 
+// Minor update for v1.0.1 testing
+
 /**
  * Props for the Button component.
  * 
