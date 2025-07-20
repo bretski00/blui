@@ -1,71 +1,29 @@
 {
-  "name": "blui",
+  "name": "blui-workspace",
   "version": "1.0.1",
-  "description": "A React component library with extensible theme system",
+  "description": "BLUI monorepo with component library and documentation",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "type": "module",
-  "main": "./dist/blui.umd.js",
-  "module": "./dist/blui.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/blui.js",
-      "require": "./dist/blui.umd.js"
-    },
-    "./style.css": "./dist/style.css"
-  },
-  "files": [
-    "dist",
-    "README.md",
-    "API_REFERENCE.md",
-    "FRAMEWORK_README.md"
-  ],
-  "keywords": [
-    "react",
-    "ui",
-    "components",
-    "typescript",
-    "theme",
-    "design-system"
-  ],
-  "author": "Your Name",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/bretski00/blui.git"
-  },
-  "bugs": {
-    "url": "https://github.com/bretski00/blui/issues"
-  },
-  "homepage": "https://github.com/bretski00/blui#readme",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -p tsconfig.build.json && vite build",
-    "build:types": "tsc -p tsconfig.build.json --emitDeclarationOnly",
-    "lint": "eslint .",
-    "preview": "vite preview",
+    "dev": "npm run dev -w blui-docs",
+    "dev:lib": "npm run dev -w blui",
+    "dev:docs": "npm run dev -w blui-docs",
+    "build": "npm run build -w blui && npm run build -w blui-docs",
+    "build:lib": "npm run build -w blui",
+    "build:docs": "npm run build -w blui-docs",
+    "lint": "npm run lint --workspaces --if-present",
     "docs:generate": "node scripts/generate-docs.js",
     "docs:watch": "node scripts/watch-docs.js",
     "changelog:generate": "node scripts/generate-changelog.js",
-    "version": "node scripts/version-bump.js",
-    "prepublishOnly": "npm run build && npm run docs:generate && npm run changelog:generate"
-  },
-  "peerDependencies": {
-    "react": "^18.0.0 || ^19.0.0",
-    "react-dom": "^18.0.0 || ^19.0.0"
-  },
-  "dependencies": {
-    "@types/react-syntax-highlighter": "^15.5.13",
-    "react": "^18.0.0 || ^19.0.0",
-    "react-dom": "^18.0.0 || ^19.0.0",
-    "react-markdown": "^10.1.0",
-    "react-router-dom": "^7.7.0",
-    "react-syntax-highlighter": "^15.6.1"
+    "version": "node scripts/version-bump.js"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",
     "@types/node": "^24.0.15",
-    "@types/react": "^19.1.8",
+    "@types/react": "^18.0.0",
     "@types/react-router-dom": "^5.3.3",
     "@vitejs/plugin-react": "^4.6.0",
     "eslint": "^9.30.1",

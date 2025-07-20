@@ -1,0 +1,30 @@
+{
+  "name": "blui-docs",
+  "version": "1.0.1",
+  "description": "Documentation application for BLUI component library",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "blui": "file:../blui-core",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-router-dom": "^7.7.0",
+    "react-syntax-highlighter": "^15.6.1",
+    "react-markdown": "^10.1.0",
+    "@types/react-syntax-highlighter": "^15.5.13"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@types/react-router-dom": "^5.3.3",
+    "@vitejs/plugin-react": "^4.6.0",
+    "typescript": "~5.8.3",
+    "vite": "^7.0.4"
+  }
+}

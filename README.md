@@ -1,6 +1,6 @@
-# BLUI - React Component Library
+# BLUI UI Framework
 
-A React-based UI framework with a powerful, extensible theme system that allows developers to customize every aspect of the design while maintaining consistency across components.
+A React component library with documentation built in.
 
 ## 🚀 Quick Start
 
