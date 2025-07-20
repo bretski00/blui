@@ -47,14 +47,6 @@ function App() {
         {/* Header Section */}
         <Box style={{ textAlign: 'center', marginBottom: '48px' }}>
           <Text 
-            as="h1" 
-            size={TextSize.ExtraLarge3} 
-            weight={TextWeight.Bold}
-            style={{ marginBottom: '16px', color: '#1e293b' }}
-          >
-            BLUI
-          </Text>
-          <Text 
             as="p" 
             size={TextSize.Large} 
             style={{ color: '#64748b', marginBottom: '32px' }}

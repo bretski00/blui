@@ -76,7 +76,7 @@ export function DocumentationNavbar() {
   const brand = (
     <>
       <Text as="h1" size="xl" weight="bold">
-        🎨 UI Framework
+        BLUI Framework
       </Text>
       <Text size="sm" color="secondary">
         v1.0.0
