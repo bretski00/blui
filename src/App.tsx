@@ -1,13 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ThemeProvider, Navbar } from './index';
-import { HomePage, DocumentationHomePage, ConsumingAppPage, ThemePlaygroundPage, LayoutDemoPage, ComponentPlaygroundPage } from './pages';
+import { ThemeProvider, DocumentationNavbar } from './index';
+import { HomePage, ConsumingAppPage, ThemePlaygroundPage, ComponentPlaygroundPage } from './pages';
 
 function App() {
   return (
     <Router>
       <ThemeProvider enableCSSVariables>
         <div style={{ minHeight: '100vh', backgroundColor: '#f8fafc' }}>
-          <Navbar />
+          <DocumentationNavbar />
           <main>
             <Routes>
               <Route path="/" element={<HomePage />} />

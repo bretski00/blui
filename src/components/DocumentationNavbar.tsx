@@ -43,14 +43,14 @@ const navItems: NavItem[] = [
     label: 'Component Playground', 
     description: 'Test components & layouts' 
   },
-  { 
-    path: '/layouts', 
-    label: 'Layout System', 
-    description: 'Grid & Flex layouts' 
-  },
+  // { 
+  //   path: '/layouts', 
+  //   label: 'Layout System', 
+  //   description: 'Grid & Flex layouts' 
+  // },
   { 
     path: '/consuming-app', 
-    label: 'Consuming App', 
+    label: 'Exxample App', 
     description: 'Real-world example' 
   },
 ];
