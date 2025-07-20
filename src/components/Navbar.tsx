@@ -10,8 +10,8 @@ interface NavItem {
 const navItems: NavItem[] = [
   { 
     path: '/', 
-    label: 'Framework Demo', 
-    description: 'Theme system showcase' 
+    label: 'Home', 
+    description: 'BLUI overview & quick start' 
   },
   { 
     path: '/playground', 
@@ -24,14 +24,9 @@ const navItems: NavItem[] = [
     description: 'Test components & layouts' 
   },
   { 
-    path: '/layouts', 
-    label: 'Layout System', 
-    description: 'Grid & Flex layouts' 
-  },
-  { 
     path: '/consuming-app', 
-    label: 'Consuming App', 
-    description: 'Real-world example' 
+    label: 'Example App', 
+    description: 'Real-world usage example' 
   },
 ];
 
