@@ -84,7 +84,7 @@ function App() {
             🚀 Quick Start
           </Text>
           
-          <Text 
+          {/* <Text 
             as="h3" 
             size={TextSize.Large} 
             weight={TextWeight.Medium}
@@ -104,7 +104,7 @@ function App() {
             >
               {installCode}
             </SyntaxHighlighter>
-          </Box>
+          </Box> */}
 
           <Text 
             as="h3" 
