@@ -79,7 +79,7 @@ export function DocumentationNavbar() {
         BLUI Framework
       </Text>
       <Text size="sm" color="secondary">
-        v1.0.0
+        v1.0.3
       </Text>
     </>
   );
