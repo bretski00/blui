@@ -29,8 +29,8 @@ interface NavItem {
 const navItems: NavItem[] = [
   { 
     path: '/', 
-    label: 'Framework Demo', 
-    description: 'Theme system showcase' 
+    label: 'Home', 
+    description: 'BLUI Framework' 
   },
   { 
     path: '/playground', 
