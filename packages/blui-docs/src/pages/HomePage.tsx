@@ -90,7 +90,7 @@ function App() {
             weight={TextWeight.Medium}
             style={{ marginBottom: '12px' }}
           >
-            Installation
+            Installation, installed in GitHub packages, not yet in NPM
           </Text>
           <Box style={{ marginBottom: '24px' }}>
             <SyntaxHighlighter
